@@ -11,8 +11,8 @@ public class SearchingFreePacket {
     /**Входные параметры */
     private String token;
     private String subscriberId;
-    private Map<int, Map<String, String>> packList;
-    private Map<int, Map<String, String>> clientData;
+    private Map<Integer, Map<String, String>> packList;
+    private Map<Integer, Map<String, String>> clientData;
     private String psTimezone;
 
     private int counterTry = 0; //если не находим на одним наборе данных клиент-таймзона, то нам нужна другая пара клиент-таймзона
@@ -20,10 +20,10 @@ public class SearchingFreePacket {
     /**Выходное значение*/
     public String packId = null;
 
-    public SearchingFreePacket(String token, Map<int, Map<String, String>> subsIdAndTZ , Map<int, Map<String, String>> packList) {
+    public SearchingFreePacket(String token, Map<Integer, Map<String, String>> clientData , Map<Integer, Map<String, String>> packList) {
         this.token = token;
         this.packList = packList;
-        this.clientData = subsIdAndTZ;
+        this.clientData = clientData;
     }
     private void setSubscriberIdAndTZ() {
         this.subscriberId = this.clientData.get(String.valueOf(counterTry)).get("SUBS_ID");
@@ -54,7 +54,7 @@ public class SearchingFreePacket {
 
         */
         this.packId = "";
-    }while(!getReturnSuccesStatement())
+    }while(!getReturnSuccesStatement() || counterTry == this.clientData.size())
 
     //Признак того, что мы нашли верный packID
     private boolean getReturnSuccesStatement() {
