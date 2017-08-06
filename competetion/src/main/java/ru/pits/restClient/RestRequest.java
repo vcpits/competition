@@ -5,13 +5,12 @@ import java.util.Map;
 
 public class RestRequest implements Serializable {
 
-    String url;
-    String host;
-    String accept;
-    String authtoken;
-    String request;
-
-    Map<String, String > headersMap;
+    private String url;
+    private String host;
+    private String accept;
+    private String authtoken;
+    private String request;
+    private Map<String, String > headersMap;
 
     public String getUrl() {
         return url;
