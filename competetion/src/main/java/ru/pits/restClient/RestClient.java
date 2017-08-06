@@ -25,3 +25,4 @@ public class RestClient {
         return response.getEntity(String.class);
     }
 }
+
