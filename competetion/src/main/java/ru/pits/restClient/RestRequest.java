@@ -1,54 +1,18 @@
 package ru.pits.restClient;
 
-import java.io.Serializable;
+import javax.ws.rs.core.MultivaluedMap;
 import java.util.Map;
 
-public class RestRequest implements Serializable {
+public class RestRequest {
 
-    private String url;
-    private String host;
-    private String accept;
-    private String authtoken;
-    private String request;
+    private MultivaluedMap request;
     private Map<String, String > headersMap;
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public String getAccept() {
-        return accept;
-    }
-
-    public void setAccept(String accept) {
-        this.accept = accept;
-    }
-
-    public String getAuthtoken() {
-        return authtoken;
-    }
-
-    public void setAuthtoken(String authtoken) {
-        this.authtoken = authtoken;
-    }
-
-    public String getRequest() {
+    public MultivaluedMap getRequest() {
         return request;
     }
 
-    public void setRequest(String request) {
+    public void setRequest(MultivaluedMap request) {
         this.request = request;
     }
 
