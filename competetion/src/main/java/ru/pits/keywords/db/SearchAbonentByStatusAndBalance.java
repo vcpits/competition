@@ -1,6 +1,8 @@
 package ru.pits.keywords.db;
 
 import ru.pits.conector.DBConector;
+import ru.pits.utils.ParametersBuilder;
+import ru.pits.utils.ParseSqlResult;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -14,7 +16,6 @@ public class SearchAbonentByStatusAndBalance {
     //Входные значения. дефолтные
     private Map<String, String> params = new HashMap<>();
 
-
     //Запрос к БД
     private String sqlSelect;
 
@@ -27,10 +28,7 @@ public class SearchAbonentByStatusAndBalance {
 
     public SearchAbonentByStatusAndBalance(Map<String, String> params) {
         setDefaultParams();
-
-        for(Map.Entry<String, String> paramEntry : params.entrySet())
-            this.params.put(paramEntry.getKey(), paramEntry.getValue());
-
+        ParametersBuilder.build(params);
         setSqlSelect();
     }
 
@@ -103,32 +101,10 @@ public class SearchAbonentByStatusAndBalance {
                 "order by -b.balance_$ desc";
     }
 
-    private String getSqlSelect() {
-        return sqlSelect;
+    public Map<Integer, Map<String, String>> getResult() {
+        ResultSet resultSet = new DBConector().execute(sqlSelect);
+        return ParseSqlResult.execute(resultSet);
     }
 
-    private ResultSet executeSql() {
-        return new DBConector().execute(getSqlSelect());
-    }
-
-    private Map<String, String> parseResult() {
-
-        Map<String, String> result = new HashMap<>();
-        ResultSet resultSet = executeSql();
-
-        try {
-            resultSet.getRow();
-            for(int i = 0; i < resultSet.getMetaData().getColumnCount(); i++)
-                result.put(resultSet.getMetaData().getColumnName(i), resultSet.getString(i));
-        }catch (Exception e) {
-            System.out.println(e);
-        }
-
-        return result;
-    }
-
-    public  Map<String, String> getResult() {
-        return parseResult();
-    }
 
 }
