@@ -33,8 +33,12 @@ public class SearchingFreePacket {
         counterTry++;
     }
 
-    do{
-        setSubscriberIdAndTZ();
+    public boolean getReturnSuccesStatement() {
+        return true;
+    }
+    private void setSubsIDandTZ() {
+        do {
+            setSubscriberIdAndTZ();
     /*  Для выполнения этого keyword необходимо выполнить следующие keywords:
         Шаг 1: OAPI: Получение списка пакетов, доступных для подключения абоненту (packs/availableForActivate)
         Шаг 2:OAPI: Определение параметров подключения пакета (activate/parameters)
@@ -42,26 +46,26 @@ public class SearchingFreePacket {
         Вышеперечисленные keywords заказчик не передал поэтому оставляю заглушку.
     */
 
-        /** Шаг 3: Проверить отсутствие в CART профиля активации для выбранного пакета
-         Выполнить keyword = "OAPI: CART: Профиль абонента" */
+            /** Шаг 3: Проверить отсутствие в CART профиля активации для выбранного пакета
+             Выполнить keyword = "OAPI: CART: Профиль абонента" */
 
-        String abonentProfileRequest = new AbonentProfile().execHttpPost(); //Ответ от сервера получен. что делать с ним дальше неизвестно.
+            String abonentProfileRequest = new AbonentProfile().execHttpPost(); //Ответ от сервера получен. что делать с ним дальше неизвестно.
 
 
-        /*
-            Шаг 4: OAPI: Получение разовых начислений за подключение пакета (activate/charges)
-            Шаг 5: OAPI: Проверка возможности подключения пакета (activate/check)
-
-            Вышеперечисленные keywords заказчик не передал поэтому оставляю заглушку.
-
-        */
-        this.packId = "";
-    }while(!getReturnSuccesStatement())
+            //
+            //Шаг 4: OAPI: Получение разовых начислений за подключение пакета (activate/charges)
+            //Шаг 5: OAPI: Проверка возможности подключения пакета (activate/check)
+            //
+            //Вышеперечисленные keywords заказчик не передал поэтому оставляю заглушку.
+            //
+            //
+            this.packId = "";
+            this.psTimezone = "";
+        } while (!getReturnSuccesStatement());
+    }
     //TODO: при появлении недостающих keywords дописать
     //Признак того, что мы нашли верный packID
-    public boolean getReturnSuccesStatement() {
-        return true;
-    }
+
     public Map<String, String> getPackIDAndTZ() {
         Map<String, String> packIdAndTZ = new HashMap<>();
         packIdAndTZ.put("packID", "будем считать, что какой-то пакет мы таки нашли ;)");
