@@ -10,9 +10,9 @@ import java.util.Map;
 public class GettingToken {
 
     /**Входные параметры*/
-    String hash = 'U1NPX0hBUzpTU09fSEFT';
-    String login = 'TEST_SBMS';
-    String password = '*********';
+    private String hash = 'U1NPX0hBUzpTU09fSEFT';;
+    private String login = 'TEST_SBMS';
+    private String password = '*********';
 
     /**Выходные параметры*/
     String token;
@@ -44,11 +44,12 @@ public class GettingToken {
         RestRequest rr = new RestRequest();
         rr.setHeadersMap(this.headersMap);
         rr.setRequest(this.requestBody);
-        token = rc.execute(rr)
+        token = (String) rc.execute(rr);
         return token;
     }
 
 /*
+    Собсвенно в теле должна отлететь такая вот строка:
     String requestBody = "grant_type=password&" +
             "username=" + this.login +
             "&password=" + this.password;
