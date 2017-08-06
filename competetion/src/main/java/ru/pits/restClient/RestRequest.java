@@ -5,6 +5,12 @@ import java.util.Map;
 
 public class RestRequest {
 
+    public RestRequest(){}
+    public RestRequest(String url, String path){
+        this.url = url;
+        this.path = path;
+    }
+
     private String url;
     private String path;
     private MultivaluedMap request;
