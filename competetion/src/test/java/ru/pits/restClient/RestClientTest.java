@@ -8,7 +8,9 @@ public class RestClientTest {
     @Test
     public void testExecute() throws Exception {
         RestClient client = new RestClient();
-        client.execute();
+        RestRequest request = new RestRequest();
+        request.setAccept("application/json");
+        client.execute(request);
     }
 
 }
