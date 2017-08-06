@@ -22,6 +22,7 @@ public class SearchAbonentByStatusAndBalance {
     public SearchAbonentByStatusAndBalance() {
         setDefaultParams();
         setSqlSelect();
+
     }
 
     public SearchAbonentByStatusAndBalance(Map<String, String> params) {
