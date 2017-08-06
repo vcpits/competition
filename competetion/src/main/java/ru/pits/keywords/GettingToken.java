@@ -44,7 +44,7 @@ public class GettingToken {
         RestRequest rr = new RestRequest();
         rr.setHeadersMap(this.headersMap);
         rr.setRequest(this.requestBody);
-        token = (String) rc.execute(rr);
+        token = (String) rc.execute(rr.getRequest());
         return token;
     }
 
