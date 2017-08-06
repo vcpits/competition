@@ -4,5 +4,5 @@ package competetion.src.main.java.ru.pits.keywords.oapi.crab;
  об обработанной заявке (/orders/{externalId})
  */
 
-public class GetPrecessedOrderInfo {
+public class GettingPrecessedOrderInfo {
 }

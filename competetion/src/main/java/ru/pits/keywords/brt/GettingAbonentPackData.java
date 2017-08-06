@@ -4,5 +4,5 @@ package competetion.src.main.java.ru.pits.keywords.brt;
  Абонента*/
 
 
-public class GetAbonentPackData {
+public class GettingAbonentPackData {
 }

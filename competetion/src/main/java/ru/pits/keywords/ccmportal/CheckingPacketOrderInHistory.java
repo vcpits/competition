@@ -6,5 +6,5 @@ package competetion.src.main.java.ru.pits.keywords.ccmportal;
 
 
 //ОПИСАНИЕ ДЛЯ ЭТОГО KEYWORD ЗАКАЗЧИК НЕ ПРЕДОСТАВИЛ.
-public class CheckPacketOrderInHistory {
+public class CheckingPacketOrderInHistory {
 }

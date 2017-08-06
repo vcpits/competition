@@ -5,5 +5,5 @@ package competetion.src.main.java.ru.pits.keywords.crab;
  обработке заказа по пакету
  */
 
-public class GetProcessingPacketInfo {
+public class GettingProcessingPacketInfo {
 }

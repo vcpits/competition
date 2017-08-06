@@ -4,5 +4,5 @@ package competetion.src.main.java.ru.pits.keywords.db;
  абонента в BIS
  */
 
-public class GetAbonentPacketStatusBIS {
+public class GettingAbonentPacketStatusBIS {
 }

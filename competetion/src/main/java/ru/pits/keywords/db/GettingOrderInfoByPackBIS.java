@@ -4,5 +4,5 @@ package competetion.src.main.java.ru.pits.keywords.db;
  по пакету
  */
 
-public class GetOrderInfoByPackBIS {
+public class GettingOrderInfoByPackBIS {
 }
