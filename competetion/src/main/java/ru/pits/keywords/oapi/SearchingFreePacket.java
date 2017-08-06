@@ -25,13 +25,14 @@ public class SearchingFreePacket {
         this.packList = packList;
         this.clientData = subsIdAndTZ;
     }
-    do{
-        private void setSubscriberIdAndTZ() {
-            this.subscriberId = this.clientData.get(String.valueOf(counterTry)).get("SUBS_ID");
-            this.psTimezone = this.clientData.get(String.valueOf(counterTry)).get("TZNAME");
-            counterTry++;
-        }
+    private void setSubscriberIdAndTZ() {
+        this.subscriberId = this.clientData.get(String.valueOf(counterTry)).get("SUBS_ID");
+        this.psTimezone = this.clientData.get(String.valueOf(counterTry)).get("TZNAME");
+        counterTry++;
+    }
 
+    do{
+        setSubscriberIdAndTZ();
     /*  Для выполнения этого keyword необходимо выполнить следующие keywords:
         Шаг 1: OAPI: Получение списка пакетов, доступных для подключения абоненту (packs/availableForActivate)
         Шаг 2:OAPI: Определение параметров подключения пакета (activate/parameters)

@@ -67,7 +67,7 @@ public class SmokeTest {
         packsList (p3.1).{packsList}
         ps-timezone (p2).{TZNAME}*/
 
-        String packId = new SearchingFreePacket(token, activeClient, baseSearchresult) {().getPackID();
+        String packId = new SearchingFreePacket(token, activeClient, ).getPackID();
         //т.к. у нас не все keywords, то считаем, что нужный пакет все-таки нашелся и мы получили его ИД
         //TODO: с появлением необходимых kewords
 
