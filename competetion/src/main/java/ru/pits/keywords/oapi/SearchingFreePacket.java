@@ -2,6 +2,7 @@ package ru.pits.keywords.oapi;
 
 import ru.pits.keywords.oapi.cart.AbonentProfile;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**OAPI: Поиск бесплатного пакета для подключения"*/
@@ -16,7 +17,7 @@ public class SearchingFreePacket {
     private String psTimezone;
 
     private int counterTry = 0; //если не находим на одним наборе данных клиент-таймзона, то нам нужна другая пара клиент-таймзона
-
+    private int clientDataSize;
     /**Выходное значение*/
     public String packId = null;
 
@@ -24,6 +25,7 @@ public class SearchingFreePacket {
         this.token = token;
         this.packList = packList;
         this.clientData = clientData;
+        this.clientData.size();
     }
     private void setSubscriberIdAndTZ() {
         this.subscriberId = this.clientData.get(String.valueOf(counterTry)).get("SUBS_ID");
@@ -54,14 +56,17 @@ public class SearchingFreePacket {
 
         */
         this.packId = "";
-    }while(!getReturnSuccesStatement() || counterTry == this.clientData.size())
-
+    }while(!getReturnSuccesStatement())
+    //TODO: при появлении недостающих keywords дописать
     //Признак того, что мы нашли верный packID
     private boolean getReturnSuccesStatement() {
         return true;
     }
-    public String getPackID() {
-        return "будем считать, что какой-то пакет мы таки нашли ;)";
+    public Map<String, String> getPackIDAndTZ() {
+        Map<String, String> packIdAndTZ = new HashMap<>();
+        packIdAndTZ.put("packID", "будем считать, что какой-то пакет мы таки нашли ;)");
+        packIdAndTZ.put("ps-timezone", "Какая-то таймзона");
+        return packIdAndTZ;
     }
 
 }

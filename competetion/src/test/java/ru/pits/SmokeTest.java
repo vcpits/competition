@@ -60,16 +60,21 @@ public class SmokeTest {
         //Что такое packList? на всякий случай отдам вообще все что нашел селект
         //TODO: уточнить что такое packList и дописать код в соответсвии с уточнениями, ане все что выдал селект
 
-        /** Выполнить keyword = "OAPI: Поиск бесплатного пакета для подключения"*/
+        /** 3.2. Выполнить keyword = "OAPI: Поиск бесплатного пакета для подключения"*/
         /*
         TOKEN (p1.1).{TOKEN}
         subscriberId (p2).{SUBS_ID}
         packsList (p3.1).{packsList}
         ps-timezone (p2).{TZNAME}*/
 
-        String packId = new SearchingFreePacket(token, activeClient, ).getPackID();
+        Map<String, String> packIdandTZ = new SearchingFreePacket(token, activeClient, ).getPackIDAndTZ();
+
         //т.к. у нас не все keywords, то считаем, что нужный пакет все-таки нашелся и мы получили его ИД
-        //TODO: с появлением необходимых kewords
+        //TODO: с появлением необходимых kewords дописать получение этого packID
+
+        /** 4.1. "CCM_Portal: Подключение пакета {X}".*/
+
+
 
     }
 
