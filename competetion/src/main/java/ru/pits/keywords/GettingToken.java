@@ -40,11 +40,9 @@ public class GettingToken {
     }
 
 
-    public String getToken() {
+    public String getToken(String url, String path) {
         RestClient rc = new RestClient();
-        RestRequest rr = new RestRequest();
-        rr.setUrl("");
-        rr.setPath("");
+        RestRequest rr = new RestRequest(url, path);
         rr.setHeadersMap(this.headersMap);
         rr.setRequest(this.requestBody);
         return rc.execute(rr);

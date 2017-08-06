@@ -11,7 +11,7 @@ public class SmokeTest {
 
     @Test
     public void testExecute() {
-        String token = new GettingToken().getToken();
+        String token = new GettingToken().getToken("","");
         System.out.println(token);
     }
 
