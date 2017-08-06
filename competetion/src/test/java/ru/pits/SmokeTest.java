@@ -49,13 +49,13 @@ public class SmokeTest {
           DURATION_DAYS = 0
           DURATION_MONTHS = 0
         * */
-        Map<String, String> baseSearchpParams = new HashMap<>();
-        baseSearchpParams.put("RECCURING_FLAG", "0");
-        baseSearchpParams.put("DURATION_DAYS", "0");
-        baseSearchpParams.put("DURATION_MONTHS", "0");
+        Map<String, String> baseSearchpParam = new HashMap<>();
+        baseSearchpParam.put("RECCURING_FLAG", "0");
+        baseSearchpParam.put("DURATION_DAYS", "0");
+        baseSearchpParam.put("DURATION_MONTHS", "0");
         //Получаем и запоминаем выходные параметры
 
-        Map<String, String> baseSearchresult = new BasePacketSearch(baseSearchpParams).getResult();
+        Map<String, String> baseSearchresult = new BasePacketSearch(baseSearchpParam).getResult();
         //По тест кейсу нам нужен некий PackList, который не возвращается селектом. Поэтому будем использовать Pack_id
         //Что такое packList?
 
