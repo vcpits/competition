@@ -36,7 +36,7 @@ public class SmokeTest {
         Запускаем со значениями по умолчанию
         */
         //TODO: зарефакторить, т.к. мы теперь возвращаем все найденные строки в виде Map<int, Map<String, String>>
-        Map<int, Map<String, String>> activeClient = new SearchAbonentByStatusAndBalance().getResult();
+        Map<Integer, Map<String, String>> activeClient = new SearchAbonentByStatusAndBalance().getResult();
         //запоминаем, что activeClient = это у нас {2} или {p2} в тестскрипте
 
         /** 3. Найден бесплатный пакет без заданного срока действия, доступный для подключения абоненту из
@@ -66,7 +66,7 @@ public class SmokeTest {
         subscriberId (p2).{SUBS_ID}
         packsList (p3.1).{packsList}
         ps-timezone (p2).{TZNAME}*/
-         */
+
         String packId = new SearchingFreePacket(token, activeClient, baseSearchresult) {().getPackID();
         //т.к. у нас не все keywords, то считаем, что нужный пакет все-таки нашелся и мы получили его ИД
         //TODO: с появлением необходимых kewords

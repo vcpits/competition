@@ -1,6 +1,7 @@
 package ru.pits.keywords.db;
 
 import ru.pits.conector.DBConector;
+import ru.pits.utils.ParseSqlResult;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -89,24 +90,9 @@ public class BasePacketSearch {
         return new DBConector().execute(getSqlSelect());
     }
 
-    private Map<int, Map<String, String>> parseResult() {
-
-        Map<String, String> result = new HashMap<>();
-        ResultSet resultSet = executeSql();
-
-        try {
-            resultSet.getRow();
-            for(int i = 0; i < resultSet.getMetaData().getColumnCount(); i++)
-                result.put(resultSet.getMetaData().getColumnName(i), resultSet.getString(i));
-        }catch (Exception e) {
-            Logger(e);
-        }
-
-        return result;
-    }
-
     public  Map<String, String> getResult() {
-        return parseResult();
+        ResultSet resultSet = new DBConector().execute(sqlSelect);
+        return ParseSqlResult.execute(resultSet);
     }
 
 
