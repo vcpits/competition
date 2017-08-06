@@ -5,8 +5,26 @@ import java.util.Map;
 
 public class RestRequest {
 
+    private String url;
+    private String path;
     private MultivaluedMap request;
     private Map<String, String > headersMap;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public MultivaluedMap getRequest() {
         return request;
