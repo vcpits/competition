@@ -8,35 +8,34 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
+import java.util.Map;
 
 public class RestClient {
-    public void execute(){
+    public void execute(String path, Map<String, String> headersMap, String body){
         Client client = Client.create();
-        String url = "/ps/auth/api/token";
+        String url = headersMap.get("host");// "/ps/auth/api/token";
+
         //Протокол я так понимаю, что в настройках где-то.
 
-        WebResource resource = client.resource("http://localhost:10102").path("/rest");
+        WebResource resource = client.resource("http://localhost:10102").path("path");
 
-        //nтипа как для токена получиь вбил хэдер
-        WebResource.Builder header = resource.header("Content-Type", "application/x-www-form-urlencoded")
-                .header("Accept-Encoding", "gzip, deflate")
-                .header("Host", "vlg-sso-lb1a.megafon.ru:47132")
-                .header("Accept", "application/json")
-                .header("Content-Length", "56")
-                .header("Authorization", "Basic {HASH}");
-        //А вот это дело из Map<String, String> построить как?
+        /**Собираем header */
+        WebResource.Builder builder = resource.getRequestBuilder();
+        for(Map.Entry<String, String> headersMapEntry : headersMap.entrySet()){
+            builder = builder.header(
+                    headersMapEntry.getKey(), headersMapEntry.getValue());
+        }
 
-        //Тело для поста предлагают делать так "nj djj,ot dthyj
+        //Тело для поста предлагают делать так ЭТО вообще верно???
         /*
         MultivaluedMap formData = new MultivaluedMapImpl();
         formData.add("name1", "val1");
         formData.add("name2", "val2");
         */
 
-        header.post();
+        builder.post();
         //неясно куда вывалится ответ.
 
 
     }
 }
-5
