@@ -66,7 +66,8 @@ public class SearchingFreePacket {
     //TODO: при появлении недостающих keywords дописать
     //Признак того, что мы нашли верный packID
 
-    public Map<String, String> getPackIDAndTZ() {
+    //просто заглушка
+    public Map<String, String> getPackIDAndTZMock() {
         Map<String, String> packIdAndTZ = new HashMap<>();
         packIdAndTZ.put("packID", "будем считать, что какой-то пакет мы таки нашли ;)");
         packIdAndTZ.put("ps-timezone", "Какая-то таймзона");

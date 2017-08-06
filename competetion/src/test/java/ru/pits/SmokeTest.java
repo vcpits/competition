@@ -55,7 +55,7 @@ public class SmokeTest {
         baseSearchpParam.put("DURATION_MONTHS", "0");
         //Получаем и запоминаем выходные параметры
 
-        Map<String, String> baseSearchresult = new BasePacketSearch(baseSearchpParam).getResult();
+        Map<Integer, Map<String, String>> baseSearchresult = new BasePacketSearch(baseSearchpParam).getResult();
         //По тест кейсу нам нужен некий PackList, который не возвращается селектом. Поэтому будем использовать Pack_id
         //Что такое packList? на всякий случай отдам вообще все что нашел селект
         //TODO: уточнить что такое packList и дописать код в соответсвии с уточнениями, ане все что выдал селект
@@ -67,7 +67,7 @@ public class SmokeTest {
         packsList (p3.1).{packsList}
         ps-timezone (p2).{TZNAME}*/
 
-        Map<String, String> packIdandTZ = new SearchingFreePacket(token, activeClient, ).getPackIDAndTZ();
+        Map<String, String> packIdandTZ = new SearchingFreePacket(token, activeClient, baseSearchresult).getPackIDAndTZMock();
 
         //т.к. у нас не все keywords, то считаем, что нужный пакет все-таки нашелся и мы получили его ИД
         //TODO: с появлением необходимых kewords дописать получение этого packID
