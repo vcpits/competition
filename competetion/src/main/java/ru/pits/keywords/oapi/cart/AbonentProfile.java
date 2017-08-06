@@ -55,7 +55,7 @@ public class AbonentProfile {
         RestClient rc = new RestClient();
         RestRequest rr = new RestRequest(headersMap.get("Host"), headersMap.get("url"));
         rr.setHeadersMap(this.headersMap);
-        rr.setRequest( new MultivaluedMapImpl().add(setBodyValue()););
+        rr.setRequest( new MultivaluedMapImpl().add(setBodyValue()));
         return rc.execute(rr);
     }
 
