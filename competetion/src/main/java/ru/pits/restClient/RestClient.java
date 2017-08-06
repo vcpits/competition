@@ -17,7 +17,7 @@ public class RestClient {
 
         //Протокол я так понимаю, что в настройках где-то.
 
-        WebResource resource = client.resource("http://localhost:10102").path("path");
+        WebResource resource = client.resource(this.url).path("path");
 
         /**Собираем header */
         WebResource.Builder builder = resource.getRequestBuilder();
