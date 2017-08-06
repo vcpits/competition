@@ -51,8 +51,8 @@ public class SmokeTest {
         * */
         Map<String, String> baseSearchpParams = new HashMap<>();
         baseSearchpParams.put("RECCURING_FLAG", "0");
-        baseSearchpParams.put("RECCURING_FLAG", "0");
-        baseSearchpParams.put("RECCURING_FLAG", "0");
+        baseSearchpParams.put("DURATION_DAYS", "0");
+        baseSearchpParams.put("DURATION_MONTHS", "0");
         //Получаем и запоминаем выходные параметры
 
         Map<String, String> baseSearchresult = new BasePacketSearch(baseSearchpParams).getResult();
