@@ -37,6 +37,11 @@ public class SmokeTest {
         Map<String, String> activeClient = new SearchAbonentByStatusAndBalance().getResult();
         //запоминаем, что activeClient = это у нас {2} или {p2} в тестскрипте
 
+        /** 3. Найден бесплатный пакет без заданного срока действия, доступный для подключения абоненту из
+         предусловия #2*/
+
+        /** 3.1 Выполнить keyword = "БД: Базовый поиск пакета*/
+
 
 
     }

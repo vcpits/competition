@@ -27,7 +27,7 @@ public class SearchAbonentByStatusAndBalance {
     public SearchAbonentByStatusAndBalance(Map<String, String> params) {
         setDefaultParams();
 
-        for(Map.Entry<String, String> paramEntry : params)
+        for(Map.Entry<String, String> paramEntry : params.entrySet())
             this.params.put(paramEntry.getKey(), paramEntry.getValue());
 
         setSqlSelect();
