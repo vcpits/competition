@@ -1,4 +1,4 @@
-package competetion.src.main.java.ru.pits.keywords;
+package ru.pits.keywords;
 
 import ru.pits.restClient.RestClient;
 import ru.pits.restClient.RestRequest;
