@@ -1,5 +1,6 @@
-package competetion.src.main.java.ru.pits.keywords;
+package ru.pits.keywords;
 
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 import ru.pits.restClient.RestClient;
 import ru.pits.restClient.RestRequest;
 
@@ -10,16 +11,16 @@ import java.util.Map;
 public class GettingToken {
 
     /**Входные параметры*/
-    private String hash = 'U1NPX0hBUzpTU09fSEFT';;
-    private String login = 'TEST_SBMS';
-    private String password = '*********';
+    private String hash = "U1NPX0hBUzpTU09fSEFT";;
+    private String login = "TEST_SBMS";
+    private String password = "*********";
 
     /**Выходные параметры*/
     String token;
 
     /**параметры для http запроса*/
     Map<String, String > headersMap = new HashMap<>();
-    MultivaluedMap requestBody;);
+    MultivaluedMap requestBody = new MultivaluedMapImpl();
 
     public GettingToken() {
         //Заполняем хэдеры
@@ -42,10 +43,11 @@ public class GettingToken {
     public String getToken() {
         RestClient rc = new RestClient();
         RestRequest rr = new RestRequest();
+        rr.setUrl("");
+        rr.setPath("");
         rr.setHeadersMap(this.headersMap);
         rr.setRequest(this.requestBody);
-        token = (String) rc.execute(rr.getRequest());
-        return token;
+        return rc.execute(rr);
     }
 
 /*
