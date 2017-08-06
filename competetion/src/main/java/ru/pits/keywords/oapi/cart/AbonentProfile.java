@@ -34,7 +34,7 @@ public class AbonentProfile {
         headersMap.put("Content-Type", "application/x-www-form-urlencoded");
         headersMap.put("charset", "UTF-8");
         headersMap.put("Host", "vlg-lcart-app1a:7007");
-        headersMap.put("Authorization", "Basic " + this.hash);
+        headersMap.put("Authorization", "Basic " + this.defaultParams.get("hash"));
     }
 
     private void setDefaultParams() {

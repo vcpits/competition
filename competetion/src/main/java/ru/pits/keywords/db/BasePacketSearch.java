@@ -90,7 +90,7 @@ public class BasePacketSearch {
         return new DBConector().execute(getSqlSelect());
     }
 
-    public  Map<String, String> getResult() {
+    public Map<Integer, Map<String, String>> getResult() {
         ResultSet resultSet = new DBConector().execute(sqlSelect);
         return ParseSqlResult.execute(resultSet);
     }
