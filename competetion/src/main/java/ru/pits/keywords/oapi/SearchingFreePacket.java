@@ -59,7 +59,7 @@ public class SearchingFreePacket {
     }while(!getReturnSuccesStatement())
     //TODO: при появлении недостающих keywords дописать
     //Признак того, что мы нашли верный packID
-    private boolean getReturnSuccesStatement() {
+    public boolean getReturnSuccesStatement() {
         return true;
     }
     public Map<String, String> getPackIDAndTZ() {
