@@ -130,6 +130,4 @@ public class SearchAbonentByStatusAndBalance {
         return parseResult();
     }
 
-
-
 }

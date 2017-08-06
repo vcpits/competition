@@ -2,7 +2,9 @@ package ru.pits;
 
 import org.testng.annotations.Test;
 import ru.pits.keywords.GettingToken;
+import ru.pits.keywords.db.BasePacketSearch;
 import ru.pits.keywords.db.SearchAbonentByStatusAndBalance;
+import ru.pits.keywords.oapi.SearchingFreePacket;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,9 +43,24 @@ public class SmokeTest {
          предусловия #2*/
 
         /** 3.1 Выполнить keyword = "БД: Базовый поиск пакета*/
+        /*
+          Входные параметры:
+          RECCURING_FLAG = 0
+          DURATION_DAYS = 0
+          DURATION_MONTHS = 0
+        * */
+        Map<String, String> baseSearchpParams = new HashMap<>();
+        baseSearchpParams.put("RECCURING_FLAG", "0");
+        baseSearchpParams.put("RECCURING_FLAG", "0");
+        baseSearchpParams.put("RECCURING_FLAG", "0");
+        //Получаем и запоминаем выходные параметры
 
+        Map<String, String> baseSearchresult = new BasePacketSearch(baseSearchpParams).getResult();
+        //По тест кейсу нам нужен некий PackList, который не возвращается селектом. Поэтому будем использовать Pack_id
+        //Что такое packList?
 
-
+        /** Выполнить keyword = "OAPI: Поиск бесплатного пакета для подключения"*/
+        String packId = new SearchingFreePacket().getPackID();
     }
 
 }
