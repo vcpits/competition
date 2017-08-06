@@ -35,8 +35,8 @@ public class SmokeTest {
         Примечание: Если входной параметр не передан - использовать значение по умолчанию
         Запускаем со значениями по умолчанию
         */
-
-        Map<Integer, Map<String, String>> activeClient = new SearchAbonentByStatusAndBalance().getResult();
+        //TODO: зарефакторить, т.к. мы теперь возвращаем все найденные строки в виде Map<int, Map<String, String>>
+        Map<int, Map<String, String>> activeClient = new SearchAbonentByStatusAndBalance().getResult();
         //запоминаем, что activeClient = это у нас {2} или {p2} в тестскрипте
 
         /** 3. Найден бесплатный пакет без заданного срока действия, доступный для подключения абоненту из
@@ -57,10 +57,20 @@ public class SmokeTest {
 
         Map<String, String> baseSearchresult = new BasePacketSearch(baseSearchpParam).getResult();
         //По тест кейсу нам нужен некий PackList, который не возвращается селектом. Поэтому будем использовать Pack_id
-        //Что такое packList?
+        //Что такое packList? на всякий случай отдам вообще все что нашел селект
+        //TODO: уточнить что такое packList и дописать код в соответсвии с уточнениями, ане все что выдал селект
 
         /** Выполнить keyword = "OAPI: Поиск бесплатного пакета для подключения"*/
-        String packId = new SearchingFreePacket().getPackID();
+        /*
+        TOKEN (p1.1).{TOKEN}
+        subscriberId (p2).{SUBS_ID}
+        packsList (p3.1).{packsList}
+        ps-timezone (p2).{TZNAME}*/
+         */
+        String packId = new SearchingFreePacket(token, activeClient, baseSearchresult) {().getPackID();
+        //т.к. у нас не все keywords, то считаем, что нужный пакет все-таки нашелся и мы получили его ИД
+        //TODO: с появлением необходимых kewords
+
     }
 
 }

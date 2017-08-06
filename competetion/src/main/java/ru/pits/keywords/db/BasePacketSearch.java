@@ -5,6 +5,7 @@ import ru.pits.conector.DBConector;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**БД: Базовый поиск пакета*/
 
@@ -88,7 +89,7 @@ public class BasePacketSearch {
         return new DBConector().execute(getSqlSelect());
     }
 
-    private Map<String, String> parseResult() {
+    private Map<int, Map<String, String>> parseResult() {
 
         Map<String, String> result = new HashMap<>();
         ResultSet resultSet = executeSql();
@@ -98,7 +99,7 @@ public class BasePacketSearch {
             for(int i = 0; i < resultSet.getMetaData().getColumnCount(); i++)
                 result.put(resultSet.getMetaData().getColumnName(i), resultSet.getString(i));
         }catch (Exception e) {
-            System.out.println(e);
+            Logger(e);
         }
 
         return result;
