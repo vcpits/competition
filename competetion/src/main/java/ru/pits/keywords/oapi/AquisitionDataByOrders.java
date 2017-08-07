@@ -100,7 +100,7 @@ public class AquisitionDataByOrders {
 
         response.put("activationDate", "crab_body.activationDate");
         response.put("deactivationDate", "crab_body.deactivationDate");
-        response.put("productId", "crab_body.productId");
+        response.put("crab_body.productId", "crab_body.productId");
 
         return response;
     }

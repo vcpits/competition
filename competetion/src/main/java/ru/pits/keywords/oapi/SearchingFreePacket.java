@@ -73,6 +73,7 @@ public class SearchingFreePacket {
         packIdAndTZ.put("psTimezone", "Какая-то таймзона");
         packIdAndTZ.put("subscriberId", "ИД абонента");
         packIdAndTZ.put("DURATION_LIMIT_DATE", "DURATION_LIMIT_DATE");
+        packIdAndTZ.put("msidn", "MSIDN");
         return packIdAndTZ;
     }
 

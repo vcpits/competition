@@ -58,25 +58,4 @@ public class AbonentProfile {
         rr.setRequest( new MultivaluedMapImpl().add(setBodyValue()));
         return rc.execute(rr);
     }
-
-/*
-    subscription_id_type тип идентификатора 5
-    subscription_id_data идентификатор -
-    HASH base64 хеш строки "login:password" пользователя YWRtaW46YWRtaW4=
-
-    Метод: POST;
-    URL: api/d_prof
-    Протокол: HTTP/1.1
-    Заголовки:
-    Content-Type: application/x-www-form-urlencoded;
-    charset=UTF-8
-    Host: vlg-lcart-app1a:7007
-    Authorization: Basic {HASH}
-    Тело запроса:
-    cmd:get_profile
-    key:{"subscription_id":{"subscription_id_type":
-        {subscription_id_type},"subscription_id_data":"
-        {subscription_id_data}"}}
-*/
-
 }

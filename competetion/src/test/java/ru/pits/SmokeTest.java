@@ -4,11 +4,14 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.pits.keywords.GettingToken;
+import ru.pits.keywords.cart.WriteOffObject;
 import ru.pits.keywords.ccmportal.CheckAbonentPackProperties;
+import ru.pits.keywords.ccmportal.CheckAccrualList;
 import ru.pits.keywords.ccmportal.CheckPacketOrderInHistory;
 import ru.pits.keywords.ccmportal.PacketConnect;
 import ru.pits.keywords.crab.GettingProcessingPacketInfo;
 import ru.pits.keywords.db.BasePacketSearch;
+import ru.pits.keywords.db.GetAbonentPacketStatusBIS;
 import ru.pits.keywords.db.GettingOrderInfoByPackBIS;
 import ru.pits.keywords.db.SearchAbonentByStatusAndBalance;
 import ru.pits.keywords.oapi.GettingAbonentPackHistory;
@@ -31,33 +34,13 @@ public class SmokeTest {
         String token = new GettingToken().getToken("","");
 
         /**2. Существует действующий клиент ФЛ с активным Абонентом*/
-        /*выполняем keyword = "Поиск абонента в статусе {X} с балансом, превышающим {Y}"
-        Входные параметры:
-        Параметр Описание Значение по умолчанию
-        CLIS_ID
-        SBST_ID
-        RTST_ID
-        JRTP_ID
-        CCAT_ID
-        MACR_ID
-        BALANCE
-
-        Примечание: Если входной параметр не передан - использовать значение по умолчанию
-        Запускаем со значениями по умолчанию
-        */
-
         Map<Integer, Map<String, String>> activeClient = new SearchAbonentByStatusAndBalance().getResult();
 
         /** 3. Найден бесплатный пакет без заданного срока действия, доступный для подключения абоненту из
          предусловия #2*/
 
         /** 3.1 Выполнить keyword = "БД: Базовый поиск пакета*/
-        /*
-          Входные параметры:
-          RECCURING_FLAG = 0
-          DURATION_DAYS = 0
-          DURATION_MONTHS = 0
-        * */
+
         Map<String, String> baseSearchpParam = new HashMap<>();
         baseSearchpParam.put("RECCURING_FLAG", "0");
         baseSearchpParam.put("DURATION_DAYS", "0");
@@ -70,28 +53,13 @@ public class SmokeTest {
         //TODO: уточнить что такое packList и дописать код в соответсвии с уточнениями, ане все что выдал селект.
 
         /** 3.2. Выполнить keyword = "OAPI: Поиск бесплатного пакета для подключения"*/
-        /*
-        TOKEN (p1.1).{TOKEN}
-        subscriberId (p2).{SUBS_ID}
-        packsList (p3.1).{packsList}
-        ps-timezone (p2).{TZNAME}*/
-
-        Map<String, String> packIdandTZ = new SearchingFreePacket(token, activeClient, baseSearchResult).getPackIDAndTZMock();
+         Map<String, String> packIdandTZ = new SearchingFreePacket(token, activeClient, baseSearchResult).getPackIDAndTZMock();
 
         //т.к. у нас не все keywords, то считаем, что нужный пакет все-таки нашелся и мы получили его ИД
         //TODO: с появлением необходимых kewords дописать получение необходимых параметров
 
         /** 4.1. "CCM_Portal: Подключение пакета {X}".*/
-        /* Входные данные
-        TOKEN (p1.1).{TOKEN}
-        subscriberId (p2).{SUBS_ID}
-        packId (p3).{PACK_ID}
-        ps-timezone (p2).{TZNAME}
 
-        Выходные данные:
-            orderId идентификатор заказа на подключение пакета
-            subscriberPackId идентификатор экземпляра пакета
-        */
         String dateFrom = new Date().toString();
         Map<String, String > connectedPackData = new PacketConnect(token, packIdandTZ.get("subscriberId"), packIdandTZ.get("packID"),
                 true, "1", dateFrom, packIdandTZ.get("psTimezone")).getResult();
@@ -99,27 +67,6 @@ public class SmokeTest {
 
         /**4.2  Выполнить keyword = "CCM_Portal: Проверка заказов
          пакета в Истории заказов". */
-        /*
-            Входные Параметры:
-            TOKEN (p1.1).{TOKEN}
-            orderIds (1).{orderId}
-            ps-timezone (p2).{TZNAME}
-
-
-            Выходные параметры должны иметь значения
-            orderStatusId 3
-            orderTypeId 2
-            crab_body.deactivationDate (p3).{DURATION_LIMIT_DATE}
-            productInstanceId (1).{subscriberPackId}
-
-            Зафиксировать:
-            trace_number
-            bisOrderId
-            crab_body.activationDate
-            crab_body.deactivationDate
-            crab_body.productId - идентификатор продукта в CCM (ccm_pom.products)
-
-        */
 
         Map<String, String> checkedPackOrderInHistory = new CheckPacketOrderInHistory(token, connectedPackData.get("oredId"),
                 packIdandTZ.get("subscriberId"), "", "", "", "",
@@ -164,24 +111,41 @@ public class SmokeTest {
         Map<String, Map<String, String>> abonentPAckProperties = new CheckAbonentPackProperties(token, packIdandTZ.get("SUBS_ID"), connectedPackData.get("subscriberPackId"),
                 packIdandTZ.get("packID"), packIdandTZ.get("psTimezone")).getResult();
 
+        /**проверки из пакета "CCM_Portal: Проверка свойств пакета услуг абонента"*/
         asert.assertEquals(abonentPAckProperties.get("result1").get("packStatusId"), abonentPAckProperties.get("result1").get("packStatusId"));
         asert.assertEquals(abonentPAckProperties.get("result1").get("activationDate"), abonentPAckProperties.get("result1").get("activationDate"));
         asert.assertEquals(abonentPAckProperties.get("result1").get("deactivationDate"), abonentPAckProperties.get("result1").get("deactivationDate"));
         asert.assertEquals(abonentPAckProperties.get("result1").get("accountTypeId"), abonentPAckProperties.get("result1").get("accountTypeId"));
-
+        /** проверки SmokeTest*/
         asert.assertEquals(abonentPAckProperties.get("result1").get("packStatusId"), "1");
         asert.assertEquals(abonentPAckProperties.get("result1").get("activationDate"), checkedPackOrderInHistory.get("activationDate"));
         asert.assertEquals(abonentPAckProperties.get("result1").get("deactivationDate"), checkedPackOrderInHistory.get("deactivationDate"));
 
         /**4.6. Выполнить keyword = "OAPI: Получение истории по пакету абонента (/packs/{packId}/history)".*/
-        Map<String, String> abonentPackHistory = new GettingAbonentPackHistory(token, packIdandTZ.get("SUBS_ID"), packIdandTZ.get("packID"),
+        Map<String, String> abonentPackHistory = new GettingAbonentPackHistory(token, packIdandTZ.get("subscriberId"), packIdandTZ.get("packID"),
                 checkedPackOrderInHistory.get("activationDate"), checkedPackOrderInHistory.get("deactivationDate"), "1", packIdandTZ.get("psTimezone")).getResult();
 
         asert.assertEquals(abonentPackHistory.get("activationDate"), checkedPackOrderInHistory.get("activationDate}"));
         asert.assertEquals(abonentPackHistory.get("deactivationDate"), checkedPackOrderInHistory.get("deactivationDate}"));
         asert.assertEquals(abonentPackHistory.get("status.packStatusId"), "1");
 
-        /***/
+        /**4.7. Выполнить keyword = "БД: Получение статуса пакета абонента в BIS".*/
+        Map<String, String> abonentPacketStatusBIS = new GetAbonentPacketStatusBIS(packIdandTZ.get("subscriberId"), packIdandTZ.get("packID"),
+                checkedPackOrderInHistory.get("TRACE_NUMBER")).getResult();
+
+        /**Проверки*/
+        asert.assertEquals(abonentPacketStatusBIS.get("PROD_ID"), checkedPackOrderInHistory.get("crab_body.productId"));
+        asert.assertEquals(abonentPacketStatusBIS.get("START_DATE"), checkedPackOrderInHistory.get("activationDate"));
+        asert.assertEquals(abonentPacketStatusBIS.get("END_DATE"), checkedPackOrderInHistory.get("deactivationDate"));
+
+        /**4.8. Выполнить keyword = "CART: Объект списания абонента".*/
+        String writeOff = new WriteOffObject("5", packIdandTZ.get("subscriberId"), packIdandTZ.get("packID"), "3").getResult();
+        asert.assertTrue(writeOff.equals(""));//проверка что ничего не "нашлось".
+
+
+        /**4.9. Выполнить keyword = "CCM_Portal: Проверка списка начислений"*/
+        String startDay = "0";// начало текущих суток. В каком вид они не говорится. поэтому просто заглушка. типа есть.
+        Map<String, String> accrualList = new CheckAccrualList(token, packIdandTZ.get("packID"), startDay, packIdandTZ.get("packID" ).getResult();
 
 
     }
