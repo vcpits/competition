@@ -18,7 +18,11 @@ import ru.pits.keywords.db.GettingOrderInfoByPackBIS;
 import ru.pits.keywords.db.SearchAbonentByStatusAndBalance;
 import ru.pits.keywords.oapi.GettingAbonentPackHistory;
 import ru.pits.keywords.oapi.SearchingFreePacket;
+import ru.pits.keywords.ufm.UploadingClientData;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -154,14 +158,47 @@ public class SmokeTest {
 
 
         /**4.10 Выполнить keyword = "BRT: Получение данных по пакетам абонента"*/
+        DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
+        Date date1 = new Date();
+        Date date2 = new Date();
+
         String port = new GetTelnetPort().getPort();
         Map<String, String> abonentPackData = new GetAbonentPackData(port, packIdandTZ.get("subscriberId")).getResult();
         asert.assertEquals(abonentPackData.get("subs"),  packIdandTZ.get("subscriberId"));
         asert.assertEquals(abonentPackData.get("pack"),  packIdandTZ.get("packID"));
         asert.assertEquals(abonentPackData.get("trace_number"),  checkedPackOrderInHistory.get("trace_number"));
-        asert.assertTrue(abonentPackData.get("start") - checkedPackOrderInHistory.get("activationDate") < 10); // пускай 10 - небольшая дельта
-        asert.assertTrue(abonentPackData.get("end") - checkedPackOrderInHistory.get("deactivationDate") < 10);
 
+        try {
+            date1 = format.parse(abonentPackData.get("start"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        date2 = format.parse(checkedPackOrderInHistory.get("activationDate"));
+        asert.assertTrue(date1.getTime() - date2.getTime() < 10); //пускай 10 - критерий незначительности
+
+        date1 = format.parse(abonentPackData.get("end"));
+        date2 = format.parse(checkedPackOrderInHistory.get("deactivationDate"))
+        asert.assertTrue(date1.getTime() - date2.getTime() <10);
+
+
+        /**4.11UFM: Выгрузка данных по клиенту*/
+        Map<String, String> clientActivePacks = new UploadingClientData("-msisdn ", packIdandTZ.get("subscriberId")).getResult();
+
+        /**CheckList*/
+        asert.assertEquals(clientActivePacks.get("objId"),  packIdandTZ.get("packID"));
+        asert.assertEquals(clientActivePacks.get("SUBS_ID"),  packIdandTZ.get("subsId"));
+        asert.assertEquals(clientActivePacks.get("PACK_ID"),  packIdandTZ.get("packID"));
+        asert.assertEquals(clientActivePacks.get("MSISDN"),  packIdandTZ.get("msidn"));
+
+        date1 = format.parse(clientActivePacks.get("actualDate"));
+        date2 = format.parse(packIdandTZ.get("activationDate"));
+
+        asert.assertTrue(date1 > date2);
+
+
+        asert.assertAll();
     }
+
+
 
 }

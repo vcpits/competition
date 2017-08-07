@@ -74,6 +74,7 @@ public class SearchingFreePacket {
         packIdAndTZ.put("subscriberId", "ИД абонента");
         packIdAndTZ.put("DURATION_LIMIT_DATE", "DURATION_LIMIT_DATE");
         packIdAndTZ.put("msidn", "MSIDN");
+        packIdAndTZ.put("activationDate", "activationDate");
         return packIdAndTZ;
     }
 
