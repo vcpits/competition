@@ -17,7 +17,7 @@ import java.io.IOException;
 public class GetTelnetPort {
     Logger log = LoggerFactory.getLogger(GetTelnetPort.class);
 
-    public String getPort() {
+    public String getPort() throws IOException{
         return parseSSHOutput(execCommand());
     }
 
