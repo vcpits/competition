@@ -6,6 +6,7 @@ import ru.pits.sshClient.SshClient;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**brt: Получение данных по пакетам
@@ -37,7 +38,7 @@ public class GetAbonentPackData {
 
     public Map<String, String> getResult() {
         ByteArrayOutputStream os = execSSHCommand();
-        Map<String, String> result;
+        Map<String, String> result = new HashMap<>();
         //Описание в каком виде все выдодится нет, поэтому будет заглушка.
         result.put("subs","subsId");
         result.put("pack","packId");
