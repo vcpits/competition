@@ -2,10 +2,13 @@ package ru.pits;
 
 import org.testng.annotations.Test;
 import ru.pits.keywords.GettingToken;
+import ru.pits.keywords.ccmportal.CheckPacketOrderInHistory;
+import ru.pits.keywords.ccmportal.PacketConnect;
 import ru.pits.keywords.db.BasePacketSearch;
 import ru.pits.keywords.db.SearchAbonentByStatusAndBalance;
 import ru.pits.keywords.oapi.SearchingFreePacket;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,7 +76,57 @@ public class SmokeTest {
         //TODO: с появлением необходимых kewords дописать получение этого packID
 
         /** 4.1. "CCM_Portal: Подключение пакета {X}".*/
+        /* Входные данные
+        TOKEN (p1.1).{TOKEN}
+        subscriberId (p2).{SUBS_ID}
+        packId (p3).{PACK_ID}
+        ps-timezone (p2).{TZNAME}
 
+        Выходные данные:
+            orderId идентификатор заказа на подключение пакета
+            subscriberPackId идентификатор экземпляра пакета
+
+        */
+        Date dateFrom = new Date().toString();
+        Map<String, String > connectedPackData = new PacketConnect(token, packIdandTZ.get("subscriberId"), packIdandTZ.get("packID"), true, "1",
+                dateFrom, packIdandTZ.get("psTimezone"), "1", ).getResult();
+
+        /**4.2  Выполнить keyword = "CCM_Portal: Проверка заказов
+         пакета в Истории заказов". */
+        /*
+            Входные Параметры:
+            TOKEN (p1.1).{TOKEN}
+            orderIds (1).{orderId}
+            ps-timezone (p2).{TZNAME}
+
+
+            Выходные параметры должны иметь значения
+            orderStatusId 3
+            orderTypeId 2
+            crab_body.deactivationDate (p3).{DURATION_LIMIT_DATE}
+            productInstanceId (1).{subscriberPackId}
+
+            Зафиксировать:
+            trace_number
+            bisOrderId
+            crab_body.activationDate
+            crab_body.deactivationDate
+            crab_body.productId - идентификатор продукта в CCM (ccm_pom.products)
+
+        */
+
+        Map<String, String> checkedPackorderInHistory = new CheckPacketOrderInHistory(token, connectedPackData.get("oredId"),
+                packIdandTZ.get("subscriberId"), ).getResult();
+        TOKEN {TOKEN} =
+        orderIds {orderIds} =
+        subscriberId {subscriberId}=
+        productTypeIds {productTypeIds}
+        orderStatusIds {orderStatusIds}
+        productActionIds {productActionIds}
+        productIds {productIds}
+        dateFrom {dateFrom}
+        dateTo {dateTo}
+        ps-timezone {ps-timezone}
 
 
     }

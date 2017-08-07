@@ -70,7 +70,8 @@ public class SearchingFreePacket {
     public Map<String, String> getPackIDAndTZMock() {
         Map<String, String> packIdAndTZ = new HashMap<>();
         packIdAndTZ.put("packID", "будем считать, что какой-то пакет мы таки нашли ;)");
-        packIdAndTZ.put("ps-timezone", "Какая-то таймзона");
+        packIdAndTZ.put("psTimezone", "Какая-то таймзона");
+        packIdAndTZ.put("subscriberId", "ИД абонента");
         return packIdAndTZ;
     }
 

@@ -33,7 +33,7 @@ public class GettingToken {
         headersMap.put("Authorization", "Basic " + this.hash);
 
         //Зполняем тело
-        requestBody.add("grant_type", "password&");
+        requestBody.add("grant_type", "password");
         requestBody.add("username", this.login);
         requestBody.add("password", this.password);
 
