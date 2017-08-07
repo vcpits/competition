@@ -166,8 +166,8 @@ public class SmokeTest {
             asert.assertEquals(abonentPackData.get("subs"),  packIdandTZ.get("subscriberId"));
             asert.assertEquals(abonentPackData.get("pack"),  packIdandTZ.get("packID"));
             asert.assertEquals(abonentPackData.get("trace_number"),  checkedPackOrderInHistory.get("trace_number"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            log.error(ex.getMessage(), ex);
         }
 
 
@@ -176,7 +176,7 @@ public class SmokeTest {
             date2 = format.parse(checkedPackOrderInHistory.get("activationDate"));
             asert.assertTrue(date1.getTime() - date2.getTime() < 10); //пускай 10 - критерий незначительности
         } catch (ParseException ex) {
-            log.error(ex.getMessage(), ex);;
+            log.error(ex.getMessage(), ex);
         }
 
         try {
