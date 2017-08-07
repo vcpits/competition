@@ -2,13 +2,10 @@ package ru.pits.keywords.brt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
+
 import ru.pits.sshClient.SshClient;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.ByteArrayInputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -17,8 +14,13 @@ import java.io.IOException;
 public class GetTelnetPort {
     Logger log = LoggerFactory.getLogger(GetTelnetPort.class);
 
-    public String getPort() throws IOException{
-        return parseSSHOutput(execCommand());
+    public String getPort() {
+        try {
+            return parseSSHOutput(execCommand());
+        } catch (IOException ex) {
+            log.error(ex.getMessage(), ex);
+            return "20";
+        }
     }
 
     private ByteArrayOutputStream execCommand() throws IOException {

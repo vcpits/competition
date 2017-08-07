@@ -1,8 +1,11 @@
 package ru.pits;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.pits.conector.DBConector;
 import ru.pits.keywords.GettingToken;
 import ru.pits.keywords.brt.GetAbonentPackData;
 import ru.pits.keywords.brt.GetTelnetPort;
@@ -31,7 +34,7 @@ import java.util.Map;
 /**C266394: [Smoke] Добавление пакета услуг: Подключение бесплатного пакета без срока действия
  (время абонента = времени БД)*/
 public class SmokeTest {
-
+    Logger log = LoggerFactory.getLogger(SmokeTest.class);
     SoftAssert asert = new SoftAssert();
 
 
@@ -172,16 +175,16 @@ public class SmokeTest {
             date1 = format.parse(abonentPackData.get("start"));
             date2 = format.parse(checkedPackOrderInHistory.get("activationDate"));
             asert.assertTrue(date1.getTime() - date2.getTime() < 10); //пускай 10 - критерий незначительности
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (ParseException ex) {
+            log.error(ex.getMessage(), ex);;
         }
 
         try {
             date1 = format.parse(abonentPackData.get("end"));
             date2 = format.parse(checkedPackOrderInHistory.get("deactivationDate"));
             asert.assertTrue(date1.getTime() - date2.getTime() <10);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (ParseException ex) {
+            log.error(ex.getMessage(), ex);
         }
 
 
@@ -199,8 +202,8 @@ public class SmokeTest {
             date2 = format.parse(packIdandTZ.get("activationDate"));
 
             asert.assertEquals(date1.compareTo(date2), 1 );
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (ParseException ex) {
+            log.error(ex.getMessage(), ex);
         }
 
 

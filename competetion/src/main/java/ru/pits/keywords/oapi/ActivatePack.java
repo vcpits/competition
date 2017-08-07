@@ -43,9 +43,7 @@ public class ActivatePack {
     }
 
     private void setRequestBody() {
-        String body;
-
-        body = "[\n" +
+        String body = "[\n" +
                 "{\n" +
                 "\"requestBody\": {\n" +
                 "\"packId\": " + this.packId + ",\n" +
@@ -67,17 +65,6 @@ public class ActivatePack {
         this.requestBody.add("functions", body);
     }
 
-
-    /*
-    *
-    *   TOKEN токен -
-        subscriberId идентификатор абонента -
-        packId идентификатор подключаемого пакета -
-        checkBalance учет баланса (true/false) true
-        accountTypeId идентификатор типа ЛС 1 - корпоративный ЛС
-        activationDate планируемая дата подключения пакета не передано в запросе
-        ps-timezone таймзона абонента не передано в запросе
-    * */
     private String execHttpPost() {
         RestClient rc = new RestClient();
         RestRequest rr = new RestRequest(headersMap.get("Host"), headersMap.get("url"));
