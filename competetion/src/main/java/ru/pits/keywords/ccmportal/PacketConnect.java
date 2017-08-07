@@ -61,7 +61,7 @@ public class PacketConnect {
     String subscriberPackId;
 
     public PacketConnect(String token, String subscriberId, String packID, Boolean checkBalance,
-                         String accountTypeId, String accountTypeId, String activationDate) {
+                         String accountTypeId, String activationDate, String psTimezone) {
         this.token = token;
         this.subscriberId = subscriberId;
         this.packID = packID;

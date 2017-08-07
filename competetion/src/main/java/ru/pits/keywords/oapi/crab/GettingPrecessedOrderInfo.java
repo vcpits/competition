@@ -19,7 +19,7 @@ public class GettingPrecessedOrderInfo {
     MultivaluedMap requestBody = new MultivaluedMapImpl();
 
     public GettingPrecessedOrderInfo(String externalId) {
-        this.externalId = externalId
+        this.externalId = externalId;
         this.headersMap.put("url", "/orders/" + externalId);
         this.headersMap.put("Host", "vlg-crab-app1a:8888");
         this.headersMap.put("Accept", "application/json");
@@ -43,5 +43,7 @@ public class GettingPrecessedOrderInfo {
         response.put("status.state", "success");
         response.put("operation.name", "ccmPackActivate");
         response.put("subscriberPackId", "{1).{subscriberPackId}");
+
+        return response;
     }
 }

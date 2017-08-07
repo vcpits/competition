@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.pits.keywords.GettingToken;
+import ru.pits.keywords.ccmportal.CheckAbonentPackProperties;
 import ru.pits.keywords.ccmportal.CheckPacketOrderInHistory;
 import ru.pits.keywords.ccmportal.PacketConnect;
 import ru.pits.keywords.crab.GettingProcessingPacketInfo;
@@ -45,7 +46,6 @@ public class SmokeTest {
         */
 
         Map<Integer, Map<String, String>> activeClient = new SearchAbonentByStatusAndBalance().getResult();
-        //запоминаем, что activeClient = это у нас {2} или {p2} в тестскрипте
 
         /** 3. Найден бесплатный пакет без заданного срока действия, доступный для подключения абоненту из
          предусловия #2*/
@@ -63,10 +63,10 @@ public class SmokeTest {
         baseSearchpParam.put("DURATION_MONTHS", "0");
         //Получаем и запоминаем выходные параметры
 
-        Map<Integer, Map<String, String>> baseSearchresult = new BasePacketSearch(baseSearchpParam).getResult();
+        Map<Integer, Map<String, String>> baseSearchResult = new BasePacketSearch(baseSearchpParam).getResult();
         //По тест кейсу нам нужен некий PackList, который не возвращается селектом. Поэтому будем использовать Pack_id
         //Что такое packList? на всякий случай отдам вообще все что нашел селект
-        //TODO: уточнить что такое packList и дописать код в соответсвии с уточнениями, ане все что выдал селект
+        //TODO: уточнить что такое packList и дописать код в соответсвии с уточнениями, ане все что выдал селект.
 
         /** 3.2. Выполнить keyword = "OAPI: Поиск бесплатного пакета для подключения"*/
         /*
@@ -75,7 +75,7 @@ public class SmokeTest {
         packsList (p3.1).{packsList}
         ps-timezone (p2).{TZNAME}*/
 
-        Map<String, String> packIdandTZ = new SearchingFreePacket(token, activeClient, baseSearchresult).getPackIDAndTZMock();
+        Map<String, String> packIdandTZ = new SearchingFreePacket(token, activeClient, baseSearchResult).getPackIDAndTZMock();
 
         //т.к. у нас не все keywords, то считаем, что нужный пакет все-таки нашелся и мы получили его ИД
         //TODO: с появлением необходимых kewords дописать получение необходимых параметров
@@ -92,8 +92,9 @@ public class SmokeTest {
             subscriberPackId идентификатор экземпляра пакета
         */
         String dateFrom = new Date().toString();
-        Map<String, String > connectedPackData = new PacketConnect(token, packIdandTZ.get("subscriberId"), packIdandTZ.get("packID"), true, "1",
-                dateFrom, packIdandTZ.get("psTimezone")).getResult();
+        Map<String, String > connectedPackData = new PacketConnect(token, packIdandTZ.get("subscriberId"), packIdandTZ.get("packID"),
+                true, "1", dateFrom, packIdandTZ.get("psTimezone")).getResult();
+
 
         /**4.2  Выполнить keyword = "CCM_Portal: Проверка заказов
          пакета в Истории заказов". */
@@ -159,6 +160,8 @@ public class SmokeTest {
         subscriberPackId (1).{subscriberPackId}
         ps-timezone (p2).{TZNAME}
         */
+        Map<String, String> = new CheckAbonentPackProperties(token, packIdandTZ.get("SUBS_ID"), connectedPackData.get("subscriberPackId"),
+                packIdandTZ.get("packID"), packIdandTZ.get("psTimezone")).getResult();
 
 
 
