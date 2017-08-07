@@ -42,7 +42,7 @@ public class AquisitionDataByOrders {
         this.dateTo = dateTo;
         this.psTimezone = psTimezone;
 
-        this.headersMap.put("url", "URL: /openapi/v1/orders/search?limit=0&sort=-orderId");
+        this.headersMap.put("url", "/openapi/v1/orders/search?limit=0&sort=-orderId");
         this.headersMap.put("Host", " vlg-sso-lb1a.megafon.ru:47555");
         this.headersMap.put("Accept", "application/json");
         this.headersMap.put("Authtoken", this.token);
@@ -80,7 +80,7 @@ public class AquisitionDataByOrders {
 
     public Map<String, String> getResult() {
         String responseString = execHttpPost();
-        /**Выходные параметры*/
+        /**Выходные параметры  ЭТО ЗАГЛУШКА!!!*/
         //TODO: когда будет документация, написать парсилку ответа сервера, а пока заглушка
         /*
         orderId идентификатор заказа=
@@ -108,7 +108,7 @@ public class AquisitionDataByOrders {
         responce.put("type.name", "type.name");
         responce.put("orderStatusId", "3");
         responce.put("orderTypeId", "2");
-        responce.put("crab_body.deactivationDate", "crab_body.deactivationDate");
+        responce.put("crab_body.deactivationDate", "3");
         responce.put("productInstanceId", "(1).{subscriberPackId}");
 
         return responce;

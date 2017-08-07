@@ -1,6 +1,8 @@
 package ru.pits;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.pits.keywords.GettingToken;
 import ru.pits.keywords.ccmportal.CheckPacketOrderInHistory;
 import ru.pits.keywords.ccmportal.PacketConnect;
@@ -16,6 +18,7 @@ import java.util.Map;
  (время абонента = времени БД)*/
 public class SmokeTest {
 
+    SoftAssert asert = new SoftAssert();
 
 
     @Test
@@ -73,7 +76,7 @@ public class SmokeTest {
         Map<String, String> packIdandTZ = new SearchingFreePacket(token, activeClient, baseSearchresult).getPackIDAndTZMock();
 
         //т.к. у нас не все keywords, то считаем, что нужный пакет все-таки нашелся и мы получили его ИД
-        //TODO: с появлением необходимых kewords дописать получение этого packID
+        //TODO: с появлением необходимых kewords дописать получение необходимых параметров
 
         /** 4.1. "CCM_Portal: Подключение пакета {X}".*/
         /* Входные данные
@@ -118,6 +121,18 @@ public class SmokeTest {
         Map<String, String> checkedPackorderInHistory = new CheckPacketOrderInHistory(token, connectedPackData.get("oredId"),
                 packIdandTZ.get("subscriberId"), "", "", "", "",
                 "", "", packIdandTZ.get("psTimezone")).getResult();
+
+        /**проверки первые. наконец-то ;)*/
+        asert.assertEquals(checkedPackorderInHistory.get("orderStatusId"), 3);
+        asert.assertEquals(checkedPackorderInHistory.get("orderTypeId"), 2);
+        asert.assertEquals(checkedPackorderInHistory.get("crab_body.deactivationDate"), 3);
+        asert.assertEquals(checkedPackorderInHistory.get("DURATION_LIMIT_DATE"), "DURATION_LIMIT_DATE");
+
+        /**4.3. Проверить состояние заказа на подключение пакета из предусловия 3 в CRAB.*/
+        //Выполнить keyword = "CRAB: Получение информации об обработке заказа по пакету".
+
+
+
 
     }
 
