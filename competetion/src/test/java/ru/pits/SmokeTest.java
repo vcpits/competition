@@ -8,6 +8,7 @@ import ru.pits.keywords.ccmportal.CheckPacketOrderInHistory;
 import ru.pits.keywords.ccmportal.PacketConnect;
 import ru.pits.keywords.crab.GettingProcessingPacketInfo;
 import ru.pits.keywords.db.BasePacketSearch;
+import ru.pits.keywords.db.GettingOrderInfoByPackBIS;
 import ru.pits.keywords.db.SearchAbonentByStatusAndBalance;
 import ru.pits.keywords.oapi.SearchingFreePacket;
 
@@ -89,11 +90,10 @@ public class SmokeTest {
         Выходные данные:
             orderId идентификатор заказа на подключение пакета
             subscriberPackId идентификатор экземпляра пакета
-
         */
-        Date dateFrom = new Date().toString();
+        String dateFrom = new Date().toString();
         Map<String, String > connectedPackData = new PacketConnect(token, packIdandTZ.get("subscriberId"), packIdandTZ.get("packID"), true, "1",
-                dateFrom, packIdandTZ.get("psTimezone"), "1", ).getResult();
+                dateFrom, packIdandTZ.get("psTimezone")).getResult();
 
         /**4.2  Выполнить keyword = "CCM_Portal: Проверка заказов
          пакета в Истории заказов". */
@@ -119,25 +119,37 @@ public class SmokeTest {
 
         */
 
-        Map<String, String> checkedPackorderInHistory = new CheckPacketOrderInHistory(token, connectedPackData.get("oredId"),
+        Map<String, String> checkedPackOrderInHistory = new CheckPacketOrderInHistory(token, connectedPackData.get("oredId"),
                 packIdandTZ.get("subscriberId"), "", "", "", "",
                 "", "", packIdandTZ.get("psTimezone")).getResult();
 
         /**проверки первые. наконец-то ;)*/
-        asert.assertEquals(checkedPackorderInHistory.get("orderStatusId"), 3);
-        asert.assertEquals(checkedPackorderInHistory.get("orderTypeId"), 2);
-        asert.assertEquals(checkedPackorderInHistory.get("crab_body.deactivationDate"), 3);
-        asert.assertEquals(checkedPackorderInHistory.get("DURATION_LIMIT_DATE"), "DURATION_LIMIT_DATE");
+        asert.assertEquals(checkedPackOrderInHistory.get("orderStatusId"), 3);
+        asert.assertEquals(checkedPackOrderInHistory.get("orderTypeId"), 2);
+        asert.assertEquals(checkedPackOrderInHistory.get("crab_body.deactivationDate"), 3);
+        asert.assertEquals(checkedPackOrderInHistory.get("DURATION_LIMIT_DATE"), "DURATION_LIMIT_DATE");
 
         /**4.3. Проверить состояние заказа на подключение пакета из предусловия 3 в CRAB.*/
         //Выполнить keyword = "CRAB: Получение информации об обработке заказа по пакету".
-        Map<String, String> processedPackedInfo = new GettingProcessingPacketInfo("-").getResult();
+        Map<String, String> processedPackedInfo = new GettingProcessingPacketInfo(packIdandTZ.get("packID")).getResult();
+
         /**Проверки*/
         asert.assertEquals(processedPackedInfo.get("status.state"), "success");
         asert.assertEquals(processedPackedInfo.get("operation.nam.state"), "ccmPackActivate");
         asert.assertEquals(processedPackedInfo.get("subscriberPackId"), connectedPackData.get("subscriberPackId"));
 
-        /**4.4. */
+        /**4.4. Проверить состояние заказа на подключение пакета из предусловия 3 в БД BIS.*/
+        //Выполнить keyword = "БД: Получение данных заказа BIS по пакету".
+        //Входное значение:
+        //bisOrderId = (2).{bisOrderId}
+        Map<String, String> orderInfoByPackBis = new GettingOrderInfoByPackBIS(checkedPackOrderInHistory.get("bisOrderId")).getResult();
+
+        /**CheckLists*/
+        asert.assertEquals(orderInfoByPackBis.get("SUBS_ID"), packIdandTZ.get("SUBS_ID"));
+        asert.assertEquals(orderInfoByPackBis.get("PACK_ID"), packIdandTZ.get("packID"));
+        asert.assertEquals(orderInfoByPackBis.get("TRACE_NUMBER"), checkedPackOrderInHistory.get("trace_number"));
+        asert.assertEquals(orderInfoByPackBis.get("END_DATE"), checkedPackOrderInHistory.get("crab_body.deactivationDate"));
+
 
 
 

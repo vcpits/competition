@@ -82,23 +82,9 @@ public class AquisitionDataByOrders {
         String responseString = execHttpPost();
         /**Выходные параметры  ЭТО ЗАГЛУШКА!!!*/
         //TODO: когда будет документация, написать парсилку ответа сервера, а пока заглушка
-        /*
-        orderId идентификатор заказа=
-        productId идентификатор продукта=
-        productName имя продукта=
-        customerId идентификатор клиента=
-        subscriberId идентификатор абонента=
-        type.orderTypeId идентификатор типа заказа
-        type.code код типа заказа
-        type.name название типа заказа
 
-        orderStatusId 3 (Выполнен)=
-        orderTypeId 2 (Пакеты услуг -  Добавление или    активация продукта)
-        crab_body.deactivationDate (p3).{DURATION_LIMIT_DATE}
-        productInstanceId (1).{subscriberPackId}
-        */
         Map<String, String> response = new HashMap<>();
-        response.put("orderId", "order_id");
+        response.put("bisOrderId", "bisOrderId");
         response.put("productId", "productId");
         response.put("productName", "productName");
         response.put("customerId", "customerId");
@@ -110,6 +96,11 @@ public class AquisitionDataByOrders {
         response.put("orderTypeId", "2");
         response.put("crab_body.deactivationDate", "3");
         response.put("productInstanceId", "(1).{subscriberPackId}");
+        response.put("trace_number", "trace_number");
+
+        response.put("crab_body.activationDate", "crab_body.activationDate");
+        response.put("crab_body.deactivationDate", "crab_body.deactivationDate");
+        response.put("crab_body.productId", "crab_body.productId");
 
         return response;
     }
