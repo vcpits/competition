@@ -145,7 +145,13 @@ public class SmokeTest {
 
         /**4.9. Выполнить keyword = "CCM_Portal: Проверка списка начислений"*/
         String startDay = "0";// начало текущих суток. В каком вид они не говорится. поэтому просто заглушка. типа есть.
-        Map<String, String> accrualList = new CheckAccrualList(token, packIdandTZ.get("packID"), startDay, packIdandTZ.get("packID" ).getResult();
+        Map<String, String> accrualList = new CheckAccrualList(token, packIdandTZ.get("packID"), startDay, packIdandTZ.get("packID" )).getResult();
+
+        /**CheckList*/
+        asert.assertEquals(accrualList.get("count"), "0");
+
+
+        /**4.10 Выполнить keyword = "BRT: Получение данных по пакетам абонента"*/
 
 
     }

@@ -24,16 +24,6 @@ public class DBConector {
                     properties.getPassword());
             log.info("Соединение установлено");
             Statement statement = connection.createStatement();
-            //Выполним запрос
-            //result это указатель на первую строку с выборки
-            //чтобы вывести данные мы будем использовать
-            //метод next() , с помощью которого переходим к следующему элементу
-//            while (result.next()) {
-//                System.out.println("Номер в выборке #" + result.getRow()
-//                        + "\t Номер в базе #" + result.getInt("id")
-//                        + "\t" + result.getString("username"));
-//            }
-
             set = statement.executeQuery(reqest);
 
         } catch (Exception ex) {

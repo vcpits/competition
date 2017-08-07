@@ -12,18 +12,29 @@ import java.io.IOException;
 public class SshClient {
     Logger log = LoggerFactory.getLogger(SshClient.class);
 
-    public void execute(String command) throws IOException{
+    String port;
+    String host;
+
+    public SshClient(String port) {
+        this.port = port;
+        if(!port.isEmpty())
+            this.host = "localhost:" + port;
+        else
+            this.host = "localhost";
+    }
+
+    public ByteArrayOutputStream execute(String command) throws IOException{
         final SSHClient ssh = new SSHClient();
         ssh.loadKnownHosts();
 
-        ssh.connect("localhost");
+        ssh.connect(this.host);
         try {
             ssh.authPassword("login", "password");
             final Session session = ssh.startSession();
             try {
                 final Session.Command cmd = session.exec(command);
                 ByteArrayOutputStream outputStream = IOUtils.readFully(cmd.getInputStream());
-
+                return outputStream;
             } finally {
                 session.close();
             }
