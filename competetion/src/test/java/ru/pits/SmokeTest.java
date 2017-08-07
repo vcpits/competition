@@ -6,6 +6,7 @@ import org.testng.asserts.SoftAssert;
 import ru.pits.keywords.GettingToken;
 import ru.pits.keywords.ccmportal.CheckPacketOrderInHistory;
 import ru.pits.keywords.ccmportal.PacketConnect;
+import ru.pits.keywords.crab.GettingProcessingPacketInfo;
 import ru.pits.keywords.db.BasePacketSearch;
 import ru.pits.keywords.db.SearchAbonentByStatusAndBalance;
 import ru.pits.keywords.oapi.SearchingFreePacket;
@@ -41,7 +42,7 @@ public class SmokeTest {
         Примечание: Если входной параметр не передан - использовать значение по умолчанию
         Запускаем со значениями по умолчанию
         */
-        //TODO: зарефакторить, т.к. мы теперь возвращаем все найденные строки в виде Map<int, Map<String, String>>
+
         Map<Integer, Map<String, String>> activeClient = new SearchAbonentByStatusAndBalance().getResult();
         //запоминаем, что activeClient = это у нас {2} или {p2} в тестскрипте
 
@@ -130,6 +131,14 @@ public class SmokeTest {
 
         /**4.3. Проверить состояние заказа на подключение пакета из предусловия 3 в CRAB.*/
         //Выполнить keyword = "CRAB: Получение информации об обработке заказа по пакету".
+        Map<String, String> processedPackedInfo = new GettingProcessingPacketInfo("-").getResult();
+        /**Проверки*/
+        asert.assertEquals(processedPackedInfo.get("status.state"), "success");
+        asert.assertEquals(processedPackedInfo.get("operation.nam.state"), "ccmPackActivate");
+        asert.assertEquals(processedPackedInfo.get("subscriberPackId"), connectedPackData.get("subscriberPackId"));
+
+        /**4.4. */
+
 
 
 

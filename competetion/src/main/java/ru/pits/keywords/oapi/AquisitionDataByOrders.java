@@ -97,21 +97,21 @@ public class AquisitionDataByOrders {
         crab_body.deactivationDate (p3).{DURATION_LIMIT_DATE}
         productInstanceId (1).{subscriberPackId}
         */
-        Map<String, String> responce = new HashMap<>();
-        responce.put("orderId", "order_id");
-        responce.put("productId", "productId");
-        responce.put("productName", "productName");
-        responce.put("customerId", "customerId");
-        responce.put("subscriberId", "subscriberId");
-        responce.put("type.orderTypeId ", "type.orderTypeId");
-        responce.put("type.code", "type.code");
-        responce.put("type.name", "type.name");
-        responce.put("orderStatusId", "3");
-        responce.put("orderTypeId", "2");
-        responce.put("crab_body.deactivationDate", "3");
-        responce.put("productInstanceId", "(1).{subscriberPackId}");
+        Map<String, String> response = new HashMap<>();
+        response.put("orderId", "order_id");
+        response.put("productId", "productId");
+        response.put("productName", "productName");
+        response.put("customerId", "customerId");
+        response.put("subscriberId", "subscriberId");
+        response.put("type.orderTypeId ", "type.orderTypeId");
+        response.put("type.code", "type.code");
+        response.put("type.name", "type.name");
+        response.put("orderStatusId", "3");
+        response.put("orderTypeId", "2");
+        response.put("crab_body.deactivationDate", "3");
+        response.put("productInstanceId", "(1).{subscriberPackId}");
 
-        return responce;
+        return response;
     }
 
 
