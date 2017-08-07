@@ -160,15 +160,11 @@ public class SmokeTest {
         Date date2 = new Date();
 
         Map<String, String> abonentPackData = null;
-        try {
-            String port = new GetTelnetPort().getPort();
-            abonentPackData = new GetAbonentPackData(port, packIdandTZ.get("subscriberId")).getResult();
-            asert.assertEquals(abonentPackData.get("subs"),  packIdandTZ.get("subscriberId"));
-            asert.assertEquals(abonentPackData.get("pack"),  packIdandTZ.get("packID"));
-            asert.assertEquals(abonentPackData.get("trace_number"),  checkedPackOrderInHistory.get("trace_number"));
-        } catch (IOException ex) {
-            log.error(ex.getMessage(), ex);
-        }
+        String port = new GetTelnetPort().getPort();
+        abonentPackData = new GetAbonentPackData(port, packIdandTZ.get("subscriberId")).getResult();
+        asert.assertEquals(abonentPackData.get("subs"),  packIdandTZ.get("subscriberId"));
+        asert.assertEquals(abonentPackData.get("pack"),  packIdandTZ.get("packID"));
+        asert.assertEquals(abonentPackData.get("trace_number"),  checkedPackOrderInHistory.get("trace_number"));
 
 
         try {
