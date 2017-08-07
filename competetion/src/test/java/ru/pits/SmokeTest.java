@@ -178,7 +178,7 @@ public class SmokeTest {
             date2 = format.parse(checkedPackOrderInHistory.get("deactivationDate"));
             asert.assertTrue(date1.getTime() - date2.getTime() <10);
         } catch (ParseException ex) {
-            log.error(ex.getMessage(), ex);;
+            log.error(ex.getMessage(), ex);
         }
 
 
@@ -197,7 +197,7 @@ public class SmokeTest {
 
             asert.assertEquals(date1.compareTo(date2), 1 );
         } catch (ParseException ex) {
-            log.error(ex.getMessage(), ex););
+            log.error(ex.getMessage(), ex);
         }
 
 
