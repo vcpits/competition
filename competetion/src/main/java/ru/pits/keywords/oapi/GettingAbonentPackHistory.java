@@ -13,7 +13,7 @@ public class GettingAbonentPackHistory {
     String packId;
     String activationDate;
     String deactivationDate;
-    String packStatusIds
+    String packStatusIds;
     String psTimezone;
 
     /**параметры для http запроса*/
