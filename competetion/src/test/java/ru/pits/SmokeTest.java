@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.pits.keywords.GettingToken;
+import ru.pits.keywords.brt.GetAbonentPackData;
 import ru.pits.keywords.brt.GetTelnetPort;
 import ru.pits.keywords.cart.WriteOffObject;
 import ru.pits.keywords.ccmportal.CheckAbonentPackProperties;
@@ -154,8 +155,12 @@ public class SmokeTest {
 
         /**4.10 Выполнить keyword = "BRT: Получение данных по пакетам абонента"*/
         String port = new GetTelnetPort().getPort();
-        Map<String, String>
-
+        Map<String, String> abonentPackData = new GetAbonentPackData(port, packIdandTZ.get("subscriberId")).getResult();
+        asert.assertEquals(abonentPackData.get("subs"),  packIdandTZ.get("subscriberId"));
+        asert.assertEquals(abonentPackData.get("pack"),  packIdandTZ.get("packID"));
+        asert.assertEquals(abonentPackData.get("trace_number"),  checkedPackOrderInHistory.get("trace_number"));
+        asert.assertTrue(abonentPackData.get("start") - checkedPackOrderInHistory.get("activationDate") < 10); // пускай 10 - небольшая дельта
+        asert.assertTrue(abonentPackData.get("end") - checkedPackOrderInHistory.get("deactivationDate") < 10);
 
     }
 
