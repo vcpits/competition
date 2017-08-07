@@ -1,4 +1,4 @@
-package competetion.src.main.java.ru.pits.keywords.brt;
+package ru.pits.keywords.brt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,32 +17,19 @@ import java.io.IOException;
 public class GetTelnetPort {
     Logger log = LoggerFactory.getLogger(GetTelnetPort.class);
 
-    private String port;
-
     public String getPort() {
-        return port;
+        return parseSSHOutput(execCommand());
     }
 
-    public void setPort(String port) {
-        this.port = port;
-    }
-
-    public String returnResult() throws IOException {
-
-
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        DocumentBuilder builder = null;
-        try {
-            builder = factory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-
+    private ByteArrayOutputStream execCommand() throws IOException {
         SshClient sshClient = new SshClient("");
         sshClient.execute("sudo –u brt -i");
         ByteArrayOutputStream execute = sshClient.execute("cat /data/brt/BRT/brt-conf/config.xml");
-        Document dom = builder.parse(new ByteArrayInputStream(execute));
-        return dom.getElementsByTagName("Telnet Port").item(0).getTextContent() ;
+
+        return sshClient.execute("cat /data/brt/BRT/brt-conf/config.xml");
+    }
+
+    private String parseSSHOutput(ByteArrayOutputStream streamSSh) {//парсилка для потока из ssh пока заглушка
+        return "";
     }
 }

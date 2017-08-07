@@ -23,7 +23,7 @@ public class CheckAccrualList {
 
     /**Выполнить keyword = "OAPI: Получение списка начислений абонента (/charges/search)"*/
     public Map<String, String> getResult() {
-        return = new GettingAbonentCharges(this.token, this.msisdn, this.dateFrom, this.packIDs).getResult();
+        return new GettingAbonentCharges(this.token, this.msisdn, this.dateFrom, this.packIDs).getResult();
     }
 
 }

@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.pits.keywords.GettingToken;
+import ru.pits.keywords.brt.GetTelnetPort;
 import ru.pits.keywords.cart.WriteOffObject;
 import ru.pits.keywords.ccmportal.CheckAbonentPackProperties;
 import ru.pits.keywords.ccmportal.CheckAccrualList;
@@ -152,6 +153,8 @@ public class SmokeTest {
 
 
         /**4.10 Выполнить keyword = "BRT: Получение данных по пакетам абонента"*/
+        String port = new GetTelnetPort().getPort();
+        Map<String, String>
 
 
     }
