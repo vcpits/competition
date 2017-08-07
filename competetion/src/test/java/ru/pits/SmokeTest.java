@@ -116,18 +116,8 @@ public class SmokeTest {
         */
 
         Map<String, String> checkedPackorderInHistory = new CheckPacketOrderInHistory(token, connectedPackData.get("oredId"),
-                packIdandTZ.get("subscriberId"), ).getResult();
-        TOKEN {TOKEN} =
-        orderIds {orderIds} =
-        subscriberId {subscriberId}=
-        productTypeIds {productTypeIds}
-        orderStatusIds {orderStatusIds}
-        productActionIds {productActionIds}
-        productIds {productIds}
-        dateFrom {dateFrom}
-        dateTo {dateTo}
-        ps-timezone {ps-timezone}
-
+                packIdandTZ.get("subscriberId"), "", "", "", "",
+                "", "", packIdandTZ.get("psTimezone")).getResult();
 
     }
 
