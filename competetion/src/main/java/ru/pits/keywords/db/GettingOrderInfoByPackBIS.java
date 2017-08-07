@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class GettingOrderInfoByPackBIS {
 
-    String bisOrderId;
+    private String bisOrderId;
 
     //Запрос к БД
     private String sqlSelect;

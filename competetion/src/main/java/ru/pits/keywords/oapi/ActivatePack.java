@@ -10,13 +10,13 @@ import java.util.Map;
 
 public class ActivatePack {
 
-    String token;
-    String subscriberId;
-    String packId;
-    Boolean checkBalance;
-    String accountTypeId;
-    String activationDate;
-    String psTimezone;
+    private String token;
+    private String subscriberId;
+    private String packId;
+    private Boolean checkBalance;
+    private String accountTypeId;
+    private String activationDate;
+    private String psTimezone;
 
     /**параметры для http запроса*/
     Map<String, String > headersMap = new HashMap<>();

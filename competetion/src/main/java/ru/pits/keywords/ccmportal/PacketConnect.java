@@ -7,17 +7,6 @@ import java.util.Map;
 
 /**CCM_Portal: Подключение пакета  {X}*/
 public class PacketConnect {
-
-    /*
-    TOKEN токен -
-    subscriberId идентификатор абонента -
-    packId идентификатор подключаемого пакета -
-    checkBalance учет баланса (true/false) true
-    accountTypeId идентификатор типа ЛС 1 - корпоративный ЛС
-    activationDate планируемая дата подключения пакета не передано в запросе
-    ps-timezone таймзона абонента не передано в запросе
-
-    * */
     /**Входные данные */
     private String token;
     private String subscriberId;

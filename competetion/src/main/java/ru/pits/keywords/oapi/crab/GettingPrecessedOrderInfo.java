@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class GettingPrecessedOrderInfo {
 
-    String externalId = "-";
+    private String externalId = "-";
     /**параметры для http запроса*/
     Map<String, String > headersMap = new HashMap<>();
     MultivaluedMap requestBody = new MultivaluedMapImpl();

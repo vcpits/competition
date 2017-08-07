@@ -8,13 +8,13 @@ import java.util.Map;
 
 public class GettingAbonentPackHistory {
 
-    String token;
-    String subscriberId;
-    String packId;
-    String activationDate;
-    String deactivationDate;
-    String packStatusIds;
-    String psTimezone;
+    private String token;
+    private String subscriberId;
+    private String packId;
+    private String activationDate;
+    private String deactivationDate;
+    private String packStatusIds;
+    private String psTimezone;
 
     /**параметры для http запроса*/
     Map<String, String > headersMap = new HashMap<>();

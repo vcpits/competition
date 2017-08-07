@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class GettingProcessingPacketInfo {
 
-    String externalId;
+    private String externalId;
 
     public GettingProcessingPacketInfo(String externalId) {
         this.externalId = externalId;

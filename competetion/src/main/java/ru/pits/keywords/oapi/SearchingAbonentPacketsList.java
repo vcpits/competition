@@ -10,11 +10,11 @@ import java.util.Map;
 
 public class SearchingAbonentPacketsList {
 
-    String token;
-    String subscriberId;
-    String subscriberPackId;
-    String packIds;
-    String psTimezone;
+    private String token;
+    private String subscriberId;
+    private String subscriberPackId;
+    private String packIds;
+    private String psTimezone;
 
     /**параметры для http запроса*/
     Map<String, String > headersMap = new HashMap<>();

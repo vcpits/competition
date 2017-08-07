@@ -9,11 +9,11 @@ import java.util.Map;
 
 public class CheckAbonentPackProperties {
 
-    String token;
-    String subscriberId;
-    String subscriberPackId;
-    String packIds;
-    String psTimezone;
+    private String token;
+    private String subscriberId;
+    private String subscriberPackId;
+    private String packIds;
+    private String psTimezone;
 
     public CheckAbonentPackProperties(String token, String subscriberId, String subscriberPackId, String packIds, String psTimezone) {
         this.token = token;
