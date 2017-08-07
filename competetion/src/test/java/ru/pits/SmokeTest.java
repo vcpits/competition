@@ -168,17 +168,22 @@ public class SmokeTest {
         asert.assertEquals(abonentPackData.get("pack"),  packIdandTZ.get("packID"));
         asert.assertEquals(abonentPackData.get("trace_number"),  checkedPackOrderInHistory.get("trace_number"));
 
+
         try {
             date1 = format.parse(abonentPackData.get("start"));
+            date2 = format.parse(checkedPackOrderInHistory.get("activationDate"));
+            asert.assertTrue(date1.getTime() - date2.getTime() < 10); //пускай 10 - критерий незначительности
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        date2 = format.parse(checkedPackOrderInHistory.get("activationDate"));
-        asert.assertTrue(date1.getTime() - date2.getTime() < 10); //пускай 10 - критерий незначительности
 
-        date1 = format.parse(abonentPackData.get("end"));
-        date2 = format.parse(checkedPackOrderInHistory.get("deactivationDate"))
-        asert.assertTrue(date1.getTime() - date2.getTime() <10);
+        try {
+            date1 = format.parse(abonentPackData.get("end"));
+            date2 = format.parse(checkedPackOrderInHistory.get("deactivationDate"));
+            asert.assertTrue(date1.getTime() - date2.getTime() <10);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
         /**4.11UFM: Выгрузка данных по клиенту*/
@@ -190,10 +195,14 @@ public class SmokeTest {
         asert.assertEquals(clientActivePacks.get("PACK_ID"),  packIdandTZ.get("packID"));
         asert.assertEquals(clientActivePacks.get("MSISDN"),  packIdandTZ.get("msidn"));
 
-        date1 = format.parse(clientActivePacks.get("actualDate"));
-        date2 = format.parse(packIdandTZ.get("activationDate"));
+        try {
+            date1 = format.parse(clientActivePacks.get("actualDate"));
+            date2 = format.parse(packIdandTZ.get("activationDate"));
 
-        asert.assertTrue(date1 > date2);
+            asert.assertEquals(date1.compareTo(date2), 1 );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
         asert.assertAll();
