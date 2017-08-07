@@ -188,8 +188,9 @@ public class SmokeTest {
         asert.assertEquals(clientActivePacks.get("PACK_ID"),  packIdandTZ.get("packID"));
         asert.assertEquals(clientActivePacks.get("MSISDN"),  packIdandTZ.get("msidn"));
 
-try {        date1 = format.parse(clientActivePacks.get("actualDate"));
-        date2 = format.parse(packIdandTZ.get("activationDate"));
+        try {
+            date1 = format.parse(clientActivePacks.get("actualDate"));
+            date2 = format.parse(packIdandTZ.get("activationDate"));
 
             asert.assertEquals(date1.compareTo(date2), 1 );
         } catch (ParseException e) {
