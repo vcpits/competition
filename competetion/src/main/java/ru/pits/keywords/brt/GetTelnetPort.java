@@ -19,7 +19,7 @@ public class GetTelnetPort {
             return parseSSHOutput(execCommand());
         } catch (IOException ex) {
             log.error(ex.getMessage(), ex);
-            return null;
+            return "20";
         }
     }
 
