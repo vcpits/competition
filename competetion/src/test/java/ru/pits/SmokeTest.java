@@ -95,8 +95,7 @@ public class SmokeTest {
 
         /**4.4. Проверить состояние заказа на подключение пакета из предусловия 3 в БД BIS.*/
         //Выполнить keyword = "БД: Получение данных заказа BIS по пакету".
-        //Входное значение:
-        //bisOrderId = (2).{bisOrderId}
+
         Map<String, String> orderInfoByPackBis = new GettingOrderInfoByPackBIS(checkedPackOrderInHistory.get("bisOrderId")).getResult();
 
         /**CheckLists*/
@@ -107,13 +106,7 @@ public class SmokeTest {
 
         /**4.5. Проверить данные по пакету из предусловия 3 в списке пакетов абонента.*/
         //Выполнить keyword = "CCM_Portal: Проверка свойств пакета услуг абонента".
-        /*Values:
-        TOKEN (p1.1).{TOKEN}
-        subscriberId (p2).{SUBS_ID}
-        packIds (p3).{PACK_ID}
-        subscriberPackId (1).{subscriberPackId}
-        ps-timezone (p2).{TZNAME}
-        */
+
         Map<String, Map<String, String>> abonentPAckProperties = new CheckAbonentPackProperties(token, packIdandTZ.get("SUBS_ID"), connectedPackData.get("subscriberPackId"),
                 packIdandTZ.get("packID"), packIdandTZ.get("psTimezone")).getResult();
 

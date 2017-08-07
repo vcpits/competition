@@ -1,4 +1,4 @@
-package competetion.src.main.java.ru.pits.keywords.ufm;
+package u.pits.keywords.ufm;
 
 /**brt: Получение данных по пакетам
  Абонента*/
