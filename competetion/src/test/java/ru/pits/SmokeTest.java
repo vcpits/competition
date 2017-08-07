@@ -35,7 +35,7 @@ public class SmokeTest {
 
 
     @Test
-    public void testExecute() {
+    public void testExecute() throws ParseException {
         /**1.1 Получаем Token*/
         String token = new GettingToken().getToken("","");
 
@@ -173,11 +173,15 @@ public class SmokeTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        date2 = format.parse(checkedPackOrderInHistory.get("activationDate"));
+        try {
+            date2 = format.parse(checkedPackOrderInHistory.get("activationDate"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         asert.assertTrue(date1.getTime() - date2.getTime() < 10); //пускай 10 - критерий незначительности
 
         date1 = format.parse(abonentPackData.get("end"));
-        date2 = format.parse(checkedPackOrderInHistory.get("deactivationDate"))
+        date2 = format.parse(checkedPackOrderInHistory.get("deactivationDate"));
         asert.assertTrue(date1.getTime() - date2.getTime() <10);
 
 
@@ -190,10 +194,11 @@ public class SmokeTest {
         asert.assertEquals(clientActivePacks.get("PACK_ID"),  packIdandTZ.get("packID"));
         asert.assertEquals(clientActivePacks.get("MSISDN"),  packIdandTZ.get("msidn"));
 
+
         date1 = format.parse(clientActivePacks.get("actualDate"));
         date2 = format.parse(packIdandTZ.get("activationDate"));
 
-        asert.assertTrue(date1 > date2);
+        asert.assertTrue(date1.getTime() > date2.getTime());
 
 
         asert.assertAll();
