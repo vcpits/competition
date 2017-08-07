@@ -150,6 +150,17 @@ public class SmokeTest {
         asert.assertEquals(orderInfoByPackBis.get("TRACE_NUMBER"), checkedPackOrderInHistory.get("trace_number"));
         asert.assertEquals(orderInfoByPackBis.get("END_DATE"), checkedPackOrderInHistory.get("crab_body.deactivationDate"));
 
+        /**4.5. Проверить данные по пакету из предусловия 3 в списке пакетов абонента.*/
+        //Выполнить keyword = "CCM_Portal: Проверка свойств пакета услуг абонента".
+        /*Values:
+        TOKEN (p1.1).{TOKEN}
+        subscriberId (p2).{SUBS_ID}
+        packIds (p3).{PACK_ID}
+        subscriberPackId (1).{subscriberPackId}
+        ps-timezone (p2).{TZNAME}
+        */
+
+
 
 
 

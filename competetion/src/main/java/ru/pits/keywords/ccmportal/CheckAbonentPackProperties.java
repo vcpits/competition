@@ -1,7 +1,6 @@
-package competetion.src.main.java.ru.pits.keywords.ccmportal;
+package ru.pits.keywords.ccmportal;
 
-/**"CCM_Portal: Проверка свойств
- пакета услуг абонента*/
+/**"CCM_Portal: Проверка свойств пакета услуг абонента*/
 
 public class CheckAbonentPackProperties {
 }
