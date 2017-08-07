@@ -40,6 +40,7 @@ public class ActivatePack {
         this.headersMap.put("ps-timezone", this.psTimezone);
 
         setRequestBody();
+    }
 
     private void setRequestBody() {
         String body;
