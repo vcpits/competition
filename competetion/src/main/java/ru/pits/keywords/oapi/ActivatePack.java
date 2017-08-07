@@ -5,7 +5,6 @@ import ru.pits.restClient.RestClient;
 import ru.pits.restClient.RestRequest;
 
 import javax.ws.rs.core.MultivaluedMap;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,30 +40,6 @@ public class ActivatePack {
         this.headersMap.put("ps-timezone", this.psTimezone);
 
         setRequestBody();
-        /*
-        Тело запроса:
-        {
-        "functions": [
-                {
-                    "requestBody": {
-                        "packId": {packId},
-                        "actionParameters": {
-                            "checkBalance": {checkBalance},
-                            "accountTypeId": {accountTypeId},
-                            "optionalChargeIds": []
-                        },
-                        "activationDate": "{activationDate}"
-                    },
-                    "requestId": "activate_{packId}",
-                    "method": "POST",
-                    "internal": true,
-                    "url": "openapi/v1/subscribers/{subscriberId}/packs/activate"
-                }
-            ]
-        }
-            }
-        * */
-    }
 
     private void setRequestBody() {
         String body;
