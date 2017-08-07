@@ -4,7 +4,6 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 import ru.pits.restClient.RestClient;
 import ru.pits.restClient.RestRequest;
 
-import javax.ws.rs.core.MultivaluedMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ public class AbonentProfile {
 
     /**параметры для http запроса*/
     Map<String, String > headersMap = new HashMap<>();
-    MultivaluedMap requestBody = new MultivaluedMapImpl();
+//    MultivaluedMap requestBody = new MultivaluedMapImpl();
 
     public AbonentProfile(Map<String, String> params) {
         setDefaultParams();
@@ -44,18 +43,21 @@ public class AbonentProfile {
     }
 
     //в данном keyword тело пост запроса заполняется "хитро", поэтому делаем отдельную функцию
-    private String setBodyValue() {
-        return "cmd=get_profile&key=%7B%22subscription_id%2" +
+    private MultivaluedMapImpl setBodyValue() {
+        MultivaluedMapImpl multivaluedMap = new MultivaluedMapImpl();
+        multivaluedMap.add("key", "cmd=get_profile&key=%7B%22subscription_id%2" +
                 "2%3A%7B%22subscription_id_type%22%3A5%2C" +
                 "%22subscription_id_data%22%3A%2286685%22" +
-                "%7D%7D";
+                "%7D%7D");
+
+        return multivaluedMap;
     }
 
     public String execHttpPost() {
         RestClient rc = new RestClient();
         RestRequest rr = new RestRequest(headersMap.get("Host"), headersMap.get("url"));
         rr.setHeadersMap(this.headersMap);
-        rr.setRequest( new MultivaluedMapImpl().add(setBodyValue()));
+        rr.setRequest(setBodyValue());
         return rc.execute(rr);
     }
 }
