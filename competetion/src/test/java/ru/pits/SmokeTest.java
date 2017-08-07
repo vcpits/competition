@@ -11,6 +11,7 @@ import ru.pits.keywords.crab.GettingProcessingPacketInfo;
 import ru.pits.keywords.db.BasePacketSearch;
 import ru.pits.keywords.db.GettingOrderInfoByPackBIS;
 import ru.pits.keywords.db.SearchAbonentByStatusAndBalance;
+import ru.pits.keywords.oapi.GettingAbonentPackHistory;
 import ru.pits.keywords.oapi.SearchingFreePacket;
 
 import java.util.Date;
@@ -160,13 +161,27 @@ public class SmokeTest {
         subscriberPackId (1).{subscriberPackId}
         ps-timezone (p2).{TZNAME}
         */
-        Map<String, String> = new CheckAbonentPackProperties(token, packIdandTZ.get("SUBS_ID"), connectedPackData.get("subscriberPackId"),
+        Map<String, Map<String, String>> abonentPAckProperties = new CheckAbonentPackProperties(token, packIdandTZ.get("SUBS_ID"), connectedPackData.get("subscriberPackId"),
                 packIdandTZ.get("packID"), packIdandTZ.get("psTimezone")).getResult();
 
+        asert.assertEquals(abonentPAckProperties.get("result1").get("packStatusId"), abonentPAckProperties.get("result1").get("packStatusId"));
+        asert.assertEquals(abonentPAckProperties.get("result1").get("activationDate"), abonentPAckProperties.get("result1").get("activationDate"));
+        asert.assertEquals(abonentPAckProperties.get("result1").get("deactivationDate"), abonentPAckProperties.get("result1").get("deactivationDate"));
+        asert.assertEquals(abonentPAckProperties.get("result1").get("accountTypeId"), abonentPAckProperties.get("result1").get("accountTypeId"));
 
+        asert.assertEquals(abonentPAckProperties.get("result1").get("packStatusId"), "1");
+        asert.assertEquals(abonentPAckProperties.get("result1").get("activationDate"), checkedPackOrderInHistory.get("activationDate"));
+        asert.assertEquals(abonentPAckProperties.get("result1").get("deactivationDate"), checkedPackOrderInHistory.get("deactivationDate"));
 
+        /**4.6. Выполнить keyword = "OAPI: Получение истории по пакету абонента (/packs/{packId}/history)".*/
+        Map<String, String> abonentPackHistory = new GettingAbonentPackHistory(token, packIdandTZ.get("SUBS_ID"), packIdandTZ.get("packID"),
+                checkedPackOrderInHistory.get("activationDate"), checkedPackOrderInHistory.get("deactivationDate"), "1", packIdandTZ.get("psTimezone")).getResult();
 
+        asert.assertEquals(abonentPackHistory.get("activationDate"), checkedPackOrderInHistory.get("activationDate}"));
+        asert.assertEquals(abonentPackHistory.get("deactivationDate"), checkedPackOrderInHistory.get("deactivationDate}"));
+        asert.assertEquals(abonentPackHistory.get("status.packStatusId"), "1");
 
+        /***/
 
 
     }

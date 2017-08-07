@@ -98,9 +98,9 @@ public class AquisitionDataByOrders {
         response.put("productInstanceId", "(1).{subscriberPackId}");
         response.put("trace_number", "trace_number");
 
-        response.put("crab_body.activationDate", "crab_body.activationDate");
-        response.put("crab_body.deactivationDate", "crab_body.deactivationDate");
-        response.put("crab_body.productId", "crab_body.productId");
+        response.put("activationDate", "crab_body.activationDate");
+        response.put("deactivationDate", "crab_body.deactivationDate");
+        response.put("productId", "crab_body.productId");
 
         return response;
     }
